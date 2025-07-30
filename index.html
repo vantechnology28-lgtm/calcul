@@ -27,6 +27,8 @@
                                     <option value="3">IAAI</option>
                                     <option value="2">Manheim</option>
                                     <option value="32">Canada</option>
+                                    <option value="30">SUBLOT COPART</option>
+                                    <option value="31">SUBLOT IAAI</option>
                                 </select>
                             </div>
 
@@ -69,6 +71,12 @@
                         </div>
                     </div>
                 </form>
+                
+                <!-- Блок отладки (временно) -->
+                <div id="debugInfo" style="background: #f0f0f0; padding: 10px; margin-top: 20px; border-radius: 5px; font-size: 12px; color: #666;">
+                    <strong>🔧 Отладочная информация:</strong>
+                    <div id="debugText">Загрузка...</div>
+                </div>
             </div>
 
             <div class="calculate-section">
@@ -128,7 +136,25 @@
         </div>
     </div>
 
+    <!-- Сначала загружаем данные, потом скрипт -->
     <script src="data.js"></script>
     <script src="script.js"></script>
+    
+    <script>
+        // Дополнительная отладка прямо в HTML
+        document.addEventListener('DOMContentLoaded', function() {
+            const debugEl = document.getElementById('debugText');
+            
+            setTimeout(() => {
+                let debugInfo = [];
+                debugInfo.push(`Data.js loaded: ${typeof locationData !== 'undefined' ? '✅' : '❌'}`);
+                debugInfo.push(`Script.js loaded: ${typeof elements !== 'undefined' ? '✅' : '❌'}`);
+                debugInfo.push(`Auctions available: ${typeof locationData !== 'undefined' ? Object.keys(locationData).length : 'N/A'}`);
+                debugInfo.push(`Port data: ${typeof portData !== 'undefined' ? '✅' : '❌'}`);
+                
+                debugEl.innerHTML = debugInfo.join('<br>');
+            }, 100);
+        });
+    </script>
 </body>
 </html>
