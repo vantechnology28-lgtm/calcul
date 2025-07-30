@@ -1,299 +1,27 @@
-// Проверяем загрузку script.js
-console.log('🔧 Loading script.js...');
+console.log('🔧 Script.js starting...');
 
-// Ждем загрузки DOM
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ Arrival ports populated:', ports.length);
-}
+// Простая проверка загрузки
+var elements = null;
 
-function clearSelect(select, text) {
-    select.innerHTML = `<option value="">${text}</option>`;
-    select.disabled = true;
-}
-
-function resetDependentFields(fields) {
-    const fieldMap = {
-        'location': () => updateDisplay('selectedLocation', 'Не выбрана'),
-        'portLoading': () => updateDisplay('selectedPortLoading', 'Не выбран'),
-        'portArrival': () => updateDisplay('selectedPortArrival', 'Не выбран')
-    };
-    
-    fields.forEach(field => {
-        if (fieldMap[field]) fieldMap[field]();
-    });
-}
-
-function updateDisplay(elementId, text) {
-    const element = document.getElementById(elementId);
-    if (element) {
-        element.textContent = text === '' ? 'Не выбран' : text;
-    }
-}
-
-function checkForm() {
-    const isComplete = elements.auction.value && 
-                     elements.location.value && 
-                     elements.portLoading.value && 
-                     elements.destination.value &&
-                     elements.portArrival.value;
-    
-    elements.calculateBtn.disabled = !isComplete;
-    
-    if (isComplete) {
-        elements.calculateBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
-        elements.calculateBtn.innerHTML = '🧮 Рассчитать стоимость';
-    } else {
-        elements.calculateBtn.style.background = 'linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%)';
-        elements.calculateBtn.innerHTML = '🔒 Заполните все поля';
-    }
-    
-    console.log('🔍 Form check:', {
-        auction: !!elements.auction.value,
-        location: !!elements.location.value,
-        portLoading: !!elements.portLoading.value,
-        destination: !!elements.destination.value,
-        portArrival: !!elements.portArrival.value,
-        complete: isComplete
-    });
-}
-
-// Функция расчета стоимости
-function calculatePrice() {
-    console.log('🧮 Starting price calculation...');
-    
-    try {
-        const auctionId = elements.auction.value;
-        const locationId = elements.location.value;
-        const portLoadingId = elements.portLoading.value;
-        const portArrivalId = elements.portArrival.value;
-        const destination = elements.destination.value;
-        
-        console.log('📊 Calculation parameters:', {
-            auctionId,
-            locationId,
-            portLoadingId,
-            portArrivalId,
-            destination
-        });
-        
-        // Получаем стоимость доставки суша
-        const selectedOption = elements.location.options[elements.location.selectedIndex];
-        const landCost = parseInt(selectedOption.dataset.landCost) || 0;
-        console.log('🚛 Land cost:', landCost);
-        
-        // Получаем стоимость океанской доставки
-        let oceanCost = 0;
-        if (oceanPrices[destination] && oceanPrices[destination][portArrivalId]) {
-            oceanCost = oceanPrices[destination][portArrivalId][portLoadingId] || 0;
-        }
-        console.log('🚢 Ocean cost:', oceanCost);
-        
-        // Фиксированные расходы
-        const dealerFee = 100;
-        const portServices = destination === 'Lithuania' ? 300 : 0;
-        
-        console.log('💼 Additional costs:', { dealerFee, portServices });
-        
-        // Проверка на SUBLOT (не работают)
-        if (auctionId === '30' || auctionId === '31') {
-            displayError('SUBLOT аукционы временно недоступны. Выберите основной аукцион.');
-            return;
-        }
-        
-        // Проверка на ошибки
-        if (oceanCost > 50000) {
-            displayError('Ошибка в расчете для данного маршрута. Попробуйте другой порт прибытия.');
-            return;
-        }
-        
-        if (landCost === 0 && oceanCost === 0) {
-            displayError('Данный маршрут не поддерживается или временно недоступен.');
-            return;
-        }
-        
-        // Общая стоимость без наценки
-        const totalDelivery = landCost + oceanCost + dealerFee + portServices;
-        
-        // Наценка пользователя
-        const userMarkup = parseInt(elements.markup.value) || 0;
-        
-        // Итоговая стоимость
-        const finalPrice = totalDelivery + userMarkup;
-        
-        console.log('💰 Final calculation:', {
-            landCost,
-            oceanCost,
-            dealerFee,
-            portServices,
-            totalDelivery,
-            userMarkup,
-            finalPrice
-        });
-        
-        // Отображаем результат
-        displayResult({
-            landCost,
-            oceanCost,
-            dealerFee,
-            portServices,
-            totalDelivery,
-            userMarkup,
-            finalPrice
-        });
-        
-    } catch (error) {
-        console.error('❌ Calculation error:', error);
-        displayError('Произошла ошибка при расчете. Проверьте выбранные параметры.');
-    }
-}
-
-// Функция отображения результата
-function displayResult(prices) {
-    console.log('📋 Displaying results:', prices);
-    
-    let breakdownHTML = '';
-    
-    // Добавляем каждую статью расходов
-    if (prices.landCost > 0) {
-        breakdownHTML += `<div class="price-item">
-            <span>🚛 Доставка суша:</span>
-            <span>${prices.landCost}</span>
-        </div>`;
-    }
-    
-    if (prices.oceanCost > 0) {
-        breakdownHTML += `<div class="price-item">
-            <span>🚢 Доставка океан:</span>
-            <span>${prices.oceanCost}</span>
-        </div>`;
-    }
-    
-    if (prices.dealerFee > 0) {
-        breakdownHTML += `<div class="price-item">
-            <span>🏢 Услуги дилера:</span>
-            <span>${prices.dealerFee}</span>
-        </div>`;
-    }
-    
-    if (prices.portServices > 0) {
-        breakdownHTML += `<div class="price-item">
-            <span>⚓ Портовые услуги:</span>
-            <span>${prices.portServices}</span>
-        </div>`;
-    }
-    
-    breakdownHTML += `<div class="price-item">
-        <span>📋 Итого доставка:</span>
-        <span><strong>${prices.totalDelivery}</strong></span>
-    </div>`;
-    
-    if (prices.userMarkup > 0) {
-        breakdownHTML += `<div class="price-item markup">
-            <span>💰 Ваша наценка:</span>
-            <span>${prices.userMarkup}</span>
-        </div>`;
-    }
-    
-    breakdownHTML += `<div class="price-item total">
-        <span>🎯 ИТОГО к оплате:</span>
-        <span>${prices.finalPrice}</span>
-    </div>`;
-    
-    elements.priceBreakdown.innerHTML = breakdownHTML;
-    elements.finalAmount.textContent = `${prices.finalPrice}`;
-    
-    // Показываем секцию результатов
-    elements.resultSection.classList.add('show');
-    
-    // Добавляем предупреждение для высоких цен
-    if (prices.finalPrice > 5000) {
-        showWarning('Высокая стоимость доставки может быть связана с удаленностью локации или особенностями маршрута.');
-    }
-    
-    console.log('✅ Results displayed successfully');
-}
-
-// Функция обновления итоговой цены при изменении наценки
-function updateFinalPrice() {
-    if (!elements.resultSection.classList.contains('show')) return;
-    
-    try {
-        // Получаем базовую стоимость из последнего расчета
-        const totalItems = elements.priceBreakdown.querySelectorAll('.price-item');
-        let totalDelivery = 0;
-        
-        // Находим строку "Итого доставка"
-        totalItems.forEach(item => {
-            const text = item.textContent;
-            if (text.includes('Итого доставка:')) {
-                const priceMatch = text.match(/\$(\d+)/);
-                if (priceMatch) {
-                    totalDelivery = parseInt(priceMatch[1]);
-                }
-            }
-        });
-        
-        const userMarkup = parseInt(elements.markup.value) || 0;
-        const finalPrice = totalDelivery + userMarkup;
-        
-        // Обновляем отображение наценки и итога
-        const markupItem = elements.priceBreakdown.querySelector('.price-item.markup span:last-child');
-        const totalItem = elements.priceBreakdown.querySelector('.price-item.total span:last-child');
-        
-        if (markupItem) markupItem.textContent = `${userMarkup}`;
-        if (totalItem) totalItem.textContent = `${finalPrice}`;
-        
-        elements.finalAmount.textContent = `${finalPrice}`;
-        
-    } catch (error) {
-        console.error('Error updating final price:', error);
-    }
-}
-
-// Функция отображения ошибки
-function displayError(message) {
-    console.log('❌ Displaying error:', message);
-    
-    elements.priceBreakdown.innerHTML = `<div class="error">
-        <strong>⚠️ Ошибка:</strong> ${message}
-    </div>`;
-    
-    elements.finalAmount.textContent = '$0';
-    elements.resultSection.classList.add('show');
-}
-
-// Функция отображения предупреждения
-function showWarning(message) {
-    const warningDiv = document.createElement('div');
-    warningDiv.className = 'warning';
-    warningDiv.innerHTML = `<strong>⚠️ Внимание:</strong> ${message}`;
-    elements.resultSection.appendChild(warningDiv);
-}
-
-console.log('✅ Script.js loaded successfully');log('📱 DOM loaded, initializing calculator...');
-    
-    // Проверяем загрузку данных
-    if (typeof locationData === 'undefined') {
-        console.error('❌ locationData not loaded!');
-        alert('Ошибка: данные локаций не загружены. Проверьте data.js');
-        return;
-    }
-    
-    if (typeof portData === 'undefined') {
-        console.error('❌ portData not loaded!');
-        alert('Ошибка: данные портов не загружены. Проверьте data.js');
-        return;
-    }
-    
-    console.log('✅ All data loaded successfully');
-    initializeCalculator();
+// Ждем полной загрузки страницы
+window.addEventListener('load', function() {
+    console.log('📱 Window loaded, starting init...');
+    initCalculator();
 });
 
-// Элементы формы
-let elements = {};
-
-function initializeCalculator() {
-    // Получаем элементы формы
+function initCalculator() {
+    console.log('🚀 Initializing calculator...');
+    
+    // Проверяем данные
+    if (typeof locationData === 'undefined') {
+        console.error('❌ locationData not found!');
+        alert('Ошибка: данные не загружены');
+        return;
+    }
+    
+    console.log('✅ Data check passed');
+    
+    // Получаем элементы
     elements = {
         auction: document.getElementById('auction'),
         location: document.getElementById('location'),
@@ -307,166 +35,311 @@ function initializeCalculator() {
         finalAmount: document.getElementById('finalAmount')
     };
     
-    // Проверяем что все элементы найдены
-    for (const [key, element] of Object.entries(elements)) {
-        if (!element) {
-            console.error(`❌ Element not found: ${key}`);
+    // Проверяем элементы
+    for (var key in elements) {
+        if (!elements[key]) {
+            console.error('❌ Element not found:', key);
             return;
         }
     }
     
-    console.log('✅ All DOM elements found');
+    console.log('✅ All elements found');
     
-    // Устанавливаем обработчики событий
-    setupEventListeners();
-    
-    // Начальная проверка формы
+    // Устанавливаем обработчики
+    setupEvents();
     checkForm();
     
-    console.log('🚀 Calculator initialized successfully!');
+    console.log('🎉 Calculator ready!');
 }
 
-function setupEventListeners() {
+function setupEvents() {
+    console.log('🔗 Setting up events...');
+    
     // Аукцион
-    elements.auction.addEventListener('change', function() {
-        console.log('🏢 Auction changed:', this.value, this.options[this.selectedIndex].text);
-        
-        const auctionId = this.value;
-        updateDisplay('selectedAuction', this.options[this.selectedIndex].text);
+    elements.auction.onchange = function() {
+        console.log('🏢 Auction selected:', this.value);
+        var auctionId = this.value;
+        updateSelectedText('selectedAuction', this.options[this.selectedIndex].text);
         
         if (auctionId) {
-            populateLocations(auctionId);
+            loadLocations(auctionId);
             elements.location.disabled = false;
-            resetDependentFields(['location', 'portLoading', 'portArrival']);
         } else {
-            clearSelect(elements.location, 'Сначала выберите аукцион');
-            resetDependentFields(['location', 'portLoading', 'portArrival']);
+            clearLocationSelect();
         }
         checkForm();
-    });
-
+    };
+    
     // Локация
-    elements.location.addEventListener('change', function() {
-        console.log('📍 Location changed:', this.value, this.options[this.selectedIndex]?.text);
-        
-        updateDisplay('selectedLocation', this.options[this.selectedIndex]?.text || 'Не выбрана');
+    elements.location.onchange = function() {
+        console.log('📍 Location selected:', this.value);
+        updateSelectedText('selectedLocation', this.options[this.selectedIndex].text);
         
         if (this.value) {
-            populatePorts();
+            loadPorts();
             elements.portLoading.disabled = false;
         } else {
-            clearSelect(elements.portLoading, 'Сначала выберите локацию');
-            resetDependentFields(['portLoading', 'portArrival']);
+            clearPortSelect();
         }
         checkForm();
-    });
-
-    // Порт отправления
-    elements.portLoading.addEventListener('change', function() {
-        console.log('🚢 Loading port changed:', this.value, this.options[this.selectedIndex]?.text);
-        updateDisplay('selectedPortLoading', this.options[this.selectedIndex]?.text || 'Не выбран');
-        checkForm();
-    });
-
+    };
+    
     // Направление
-    elements.destination.addEventListener('change', function() {
-        console.log('🌍 Destination changed:', this.value);
+    elements.destination.onchange = function() {
+        console.log('🌍 Destination selected:', this.value);
         
-        const destination = this.value;
-        
-        if (destination) {
-            populateArrivalPorts(destination);
+        if (this.value) {
+            loadArrivalPorts(this.value);
             elements.portArrival.disabled = false;
         } else {
-            clearSelect(elements.portArrival, 'Выберите направление');
-            updateDisplay('selectedPortArrival', 'Не выбран');
+            clearArrivalPortSelect();
         }
         checkForm();
-    });
-
-    // Порт прибытия
-    elements.portArrival.addEventListener('change', function() {
-        console.log('⚓ Arrival port changed:', this.value, this.options[this.selectedIndex]?.text);
-        updateDisplay('selectedPortArrival', this.options[this.selectedIndex]?.text || 'Не выбран');
+    };
+    
+    // Порт отправления
+    elements.portLoading.onchange = function() {
+        console.log('🚢 Loading port selected:', this.value);
+        updateSelectedText('selectedPortLoading', this.options[this.selectedIndex].text);
         checkForm();
-    });
-
+    };
+    
+    // Порт прибытия
+    elements.portArrival.onchange = function() {
+        console.log('⚓ Arrival port selected:', this.value);
+        updateSelectedText('selectedPortArrival', this.options[this.selectedIndex].text);
+        checkForm();
+    };
+    
     // Кнопка расчета
-    elements.calculateBtn.addEventListener('click', function() {
+    elements.calculateBtn.onclick = function() {
         if (!this.disabled) {
-            console.log('🧮 Calculate button clicked');
+            console.log('🧮 Calculate clicked');
             calculatePrice();
         }
-    });
-
+    };
+    
     // Наценка
-    elements.markup.addEventListener('input', function() {
+    elements.markup.oninput = function() {
         if (elements.resultSection.classList.contains('show')) {
             updateFinalPrice();
         }
-    });
-
-    // Enter для расчета
-    document.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && !elements.calculateBtn.disabled) {
-            e.preventDefault();
-            calculatePrice();
-        }
-    });
+    };
 }
 
-// Заполнение локаций
-function populateLocations(auctionId) {
-    console.log('📍 Populating locations for auction:', auctionId);
+function loadLocations(auctionId) {
+    console.log('📍 Loading locations for auction:', auctionId);
     
-    const locations = locationData[auctionId] || [];
-    console.log('📍 Found locations:', locations.length);
+    var locations = locationData[auctionId] || [];
+    console.log('📍 Found', locations.length, 'locations');
     
     elements.location.innerHTML = '<option value="">Выберите локацию</option>';
     
-    locations.forEach((location, index) => {
-        const option = document.createElement('option');
+    for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+        var option = document.createElement('option');
         option.value = location.value;
         option.textContent = location.text;
-        option.dataset.landCost = location.landCost;
+        option.setAttribute('data-land-cost', location.landCost);
         elements.location.appendChild(option);
-        
-        if (index < 3) { // Показываем первые 3 для отладки
-            console.log(`📍 Added location ${index + 1}:`, location.text, '$' + location.landCost);
-        }
-    });
+    }
     
-    console.log('✅ Locations populated successfully');
+    console.log('✅ Locations loaded successfully');
 }
 
-// Заполнение портов отправления
-function populatePorts() {
-    console.log('🚢 Populating loading ports');
+function loadPorts() {
+    console.log('🚢 Loading ports...');
     
     elements.portLoading.innerHTML = '<option value="">Выберите порт отправления</option>';
     
-    portData.loading.forEach(port => {
-        const option = document.createElement('option');
+    var ports = portData.loading;
+    for (var i = 0; i < ports.length; i++) {
+        var port = ports[i];
+        var option = document.createElement('option');
         option.value = port.value;
         option.textContent = port.text;
         elements.portLoading.appendChild(option);
-    });
+    }
     
-    console.log('✅ Loading ports populated:', portData.loading.length);
+    console.log('✅ Ports loaded');
 }
 
-// Заполнение портов прибытия
-function populateArrivalPorts(destination) {
-    console.log('⚓ Populating arrival ports for:', destination);
+function loadArrivalPorts(destination) {
+    console.log('⚓ Loading arrival ports for:', destination);
     
     elements.portArrival.innerHTML = '<option value="">Выберите порт прибытия</option>';
     
-    const ports = portData.arrival[destination] || [];
-    ports.forEach(port => {
-        const option = document.createElement('option');
+    var ports = portData.arrival[destination] || [];
+    for (var i = 0; i < ports.length; i++) {
+        var port = ports[i];
+        var option = document.createElement('option');
         option.value = port.value;
         option.textContent = port.text;
         elements.portArrival.appendChild(option);
-    });
+    }
     
-    console.
+    console.log('✅ Arrival ports loaded');
+}
+
+function clearLocationSelect() {
+    elements.location.innerHTML = '<option value="">Сначала выберите аукцион</option>';
+    elements.location.disabled = true;
+    updateSelectedText('selectedLocation', 'Не выбрана');
+    clearPortSelect();
+}
+
+function clearPortSelect() {
+    elements.portLoading.innerHTML = '<option value="">Выберите локацию</option>';
+    elements.portLoading.disabled = true;
+    updateSelectedText('selectedPortLoading', 'Не выбран');
+}
+
+function clearArrivalPortSelect() {
+    elements.portArrival.innerHTML = '<option value="">Выберите направление</option>';
+    elements.portArrival.disabled = true;
+    updateSelectedText('selectedPortArrival', 'Не выбран');
+}
+
+function updateSelectedText(elementId, text) {
+    var element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = text || 'Не выбран';
+    }
+}
+
+function checkForm() {
+    var isComplete = elements.auction.value && 
+                    elements.location.value && 
+                    elements.portLoading.value && 
+                    elements.destination.value &&
+                    elements.portArrival.value;
+    
+    elements.calculateBtn.disabled = !isComplete;
+    
+    if (isComplete) {
+        elements.calculateBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+        elements.calculateBtn.innerHTML = '🧮 Рассчитать стоимость';
+    } else {
+        elements.calculateBtn.style.background = 'linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%)';
+        elements.calculateBtn.innerHTML = '🔒 Заполните все поля';
+    }
+}
+
+function calculatePrice() {
+    console.log('🧮 Calculating price...');
+    
+    try {
+        var auctionId = elements.auction.value;
+        var destination = elements.destination.value;
+        var portLoadingId = elements.portLoading.value;
+        var portArrivalId = elements.portArrival.value;
+        
+        // Получаем стоимость суши
+        var selectedLocationOption = elements.location.options[elements.location.selectedIndex];
+        var landCost = parseInt(selectedLocationOption.getAttribute('data-land-cost')) || 0;
+        
+        console.log('🚛 Land cost:', landCost);
+        
+        // Получаем стоимость океана
+        var oceanCost = 0;
+        if (oceanPrices[destination] && oceanPrices[destination][portArrivalId]) {
+            oceanCost = oceanPrices[destination][portArrivalId][portLoadingId] || 0;
+        }
+        
+        console.log('🚢 Ocean cost:', oceanCost);
+        
+        // SUBLOT проверка
+        if (auctionId === '30' || auctionId === '31') {
+            showError('SUBLOT аукционы временно недоступны');
+            return;
+        }
+        
+        // Проверки
+        if (landCost === 0 && oceanCost === 0) {
+            showError('Маршрут не поддерживается');
+            return;
+        }
+        
+        // Расчет
+        var dealerFee = 100;
+        var portServices = destination === 'Lithuania' ? 300 : 0;
+        var totalDelivery = landCost + oceanCost + dealerFee + portServices;
+        var userMarkup = parseInt(elements.markup.value) || 0;
+        var finalPrice = totalDelivery + userMarkup;
+        
+        console.log('💰 Final calculation:', {
+            landCost: landCost,
+            oceanCost: oceanCost,
+            dealerFee: dealerFee,
+            portServices: portServices,
+            totalDelivery: totalDelivery,
+            userMarkup: userMarkup,
+            finalPrice: finalPrice
+        });
+        
+        showResult({
+            landCost: landCost,
+            oceanCost: oceanCost,
+            dealerFee: dealerFee,
+            portServices: portServices,
+            totalDelivery: totalDelivery,
+            userMarkup: userMarkup,
+            finalPrice: finalPrice
+        });
+        
+    } catch (error) {
+        console.error('❌ Calculation error:', error);
+        showError('Ошибка расчета: ' + error.message);
+    }
+}
+
+function showResult(prices) {
+    console.log('📋 Showing results');
+    
+    var html = '';
+    
+    if (prices.landCost > 0) {
+        html += '<div class="price-item"><span>🚛 Доставка суша:</span><span>$' + prices.landCost + '</span></div>';
+    }
+    
+    if (prices.oceanCost > 0) {
+        html += '<div class="price-item"><span>🚢 Доставка океан:</span><span>$' + prices.oceanCost + '</span></div>';
+    }
+    
+    if (prices.dealerFee > 0) {
+        html += '<div class="price-item"><span>🏢 Услуги дилера:</span><span>$' + prices.dealerFee + '</span></div>';
+    }
+    
+    if (prices.portServices > 0) {
+        html += '<div class="price-item"><span>⚓ Портовые услуги:</span><span>$' + prices.portServices + '</span></div>';
+    }
+    
+    html += '<div class="price-item"><span>📋 Итого доставка:</span><span><strong>$' + prices.totalDelivery + '</strong></span></div>';
+    
+    if (prices.userMarkup > 0) {
+        html += '<div class="price-item markup"><span>💰 Ваша наценка:</span><span>$' + prices.userMarkup + '</span></div>';
+    }
+    
+    html += '<div class="price-item total"><span>🎯 ИТОГО к оплате:</span><span>$' + prices.finalPrice + '</span></div>';
+    
+    elements.priceBreakdown.innerHTML = html;
+    elements.finalAmount.textContent = '$' + prices.finalPrice;
+    elements.resultSection.classList.add('show');
+    
+    console.log('✅ Results displayed');
+}
+
+function showError(message) {
+    console.log('❌ Showing error:', message);
+    elements.priceBreakdown.innerHTML = '<div class="error"><strong>⚠️ Ошибка:</strong> ' + message + '</div>';
+    elements.finalAmount.textContent = '$0';
+    elements.resultSection.classList.add('show');
+}
+
+function updateFinalPrice() {
+    // Простая реализация обновления наценки
+    var markupValue = parseInt(elements.markup.value) || 0;
+    // Здесь можно добавить логику обновления, если нужно
+}
+
+console.log('✅ Script.js loaded successfully');
