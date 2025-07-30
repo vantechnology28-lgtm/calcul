@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USATransCar - Точный Калькулятор Доставки</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 USATransCar - Калькулятор Доставки</h1>
+            <p>Точные расчеты стоимости доставки автомобилей из США</p>
+        </div>
+
+        <div class="main-content">
+            <div class="calculator-form">
+                <form id="calculatorForm">
+                    <div class="form-section">
+                        <h3>🏢 Аукцион и Локация</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="auction">Аукцион:</label>
+                                <select id="auction" required>
+                                    <option value="">Выберите аукцион</option>
+                                    <option value="1">Copart</option>
+                                    <option value="3">IAAI</option>
+                                    <option value="2">Manheim</option>
+                                    <option value="32">Canada</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="destination">Направление:</label>
+                                <select id="destination" required>
+                                    <option value="">Выберите направление</option>
+                                    <option value="Georgia">🇬🇪 Грузия</option>
+                                    <option value="Lithuania">🇱🇹 Литва</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="location">Локация в США:</label>
+                                <select id="location" required disabled>
+                                    <option value="">Сначала выберите аукцион</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🚢 Порты и Доставка</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="portLoading">Порт отправления:</label>
+                                <select id="portLoading" required disabled>
+                                    <option value="">Выберите локацию</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="portArrival">Порт прибытия:</label>
+                                <select id="portArrival" required disabled>
+                                    <option value="">Выберите направление</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="calculate-section">
+                <h2>💰 Расчет Стоимости</h2>
+
+                <div class="markup-control">
+                    <label for="markup">Ваша наценка (USD):</label>
+                    <input type="number" id="markup" value="500" min="0" step="50" placeholder="500">
+                </div>
+
+                <div class="selected-options">
+                    <div class="selected-option">
+                        <span>Аукцион:</span>
+                        <span id="selectedAuction">Не выбран</span>
+                    </div>
+                    <div class="selected-option">
+                        <span>Локация:</span>
+                        <span id="selectedLocation">Не выбрана</span>
+                    </div>
+                    <div class="selected-option">
+                        <span>Порт отправления:</span>
+                        <span id="selectedPortLoading">Не выбран</span>
+                    </div>
+                    <div class="selected-option">
+                        <span>Порт прибытия:</span>
+                        <span id="selectedPortArrival">Не выбран</span>
+                    </div>
+                    <div class="selected-option">
+                        <span>Тип авто:</span>
+                        <span>Седан</span>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" id="calculateBtn" disabled>
+                    🔒 Заполните все поля
+                </button>
+
+                <div class="result-section" id="resultSection">
+                    <div class="price-breakdown" id="priceBreakdown"></div>
+                    <div class="final-price">
+                        <div class="amount" id="finalAmount">$0</div>
+                        <div class="currency">USD с наценкой</div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h4>ℹ️ Что включено:</h4>
+                    <ul>
+                        <li>Доставка суша (аукцион → порт)</li>
+                        <li>Доставка океан (США → назначение)</li>
+                        <li>Портовые услуги (для Литвы)</li>
+                        <li>Услуги дилеров USA Trans</li>
+                        <li>Ваша наценка</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
