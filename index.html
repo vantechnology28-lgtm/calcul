@@ -72,10 +72,10 @@
                     </div>
                 </form>
                 
-                <!-- Блок отладки (временно) -->
-                <div id="debugInfo" style="background: #f0f0f0; padding: 10px; margin-top: 20px; border-radius: 5px; font-size: 12px; color: #666;">
-                    <strong>🔧 Отладочная информация:</strong>
-                    <div id="debugText">Загрузка...</div>
+                <!-- Простой блок отладки -->
+                <div style="background: #f0f0f0; padding: 10px; margin-top: 20px; border-radius: 5px; font-size: 12px;">
+                    <strong>🔧 Статус:</strong>
+                    <div id="status">Загрузка...</div>
                 </div>
             </div>
 
@@ -136,25 +136,22 @@
         </div>
     </div>
 
-    <!-- Сначала загружаем данные, потом скрипт -->
+    <!-- Загружаем файлы по порядку -->
     <script src="data.js"></script>
     <script src="script.js"></script>
     
     <script>
-        // Дополнительная отладка прямо в HTML
-        document.addEventListener('DOMContentLoaded', function() {
-            const debugEl = document.getElementById('debugText');
+        // Простая проверка статуса
+        setTimeout(function() {
+            var status = document.getElementById('status');
+            var info = [];
             
-            setTimeout(() => {
-                let debugInfo = [];
-                debugInfo.push(`Data.js loaded: ${typeof locationData !== 'undefined' ? '✅' : '❌'}`);
-                debugInfo.push(`Script.js loaded: ${typeof elements !== 'undefined' ? '✅' : '❌'}`);
-                debugInfo.push(`Auctions available: ${typeof locationData !== 'undefined' ? Object.keys(locationData).length : 'N/A'}`);
-                debugInfo.push(`Port data: ${typeof portData !== 'undefined' ? '✅' : '❌'}`);
-                
-                debugEl.innerHTML = debugInfo.join('<br>');
-            }, 100);
-        });
+            info.push('Data.js: ' + (typeof locationData !== 'undefined' ? '✅' : '❌'));
+            info.push('Script.js: ' + (typeof elements !== 'undefined' ? '✅' : '❌'));
+            info.push('Аукционы: ' + (typeof locationData !== 'undefined' ? Object.keys(locationData).length : '0'));
+            
+            status.innerHTML = info.join('<br>');
+        }, 500);
     </script>
 </body>
 </html>
