@@ -755,8 +755,8 @@ const portData = {
     ],
     arrival: {
         Georgia: [
-            {value: "2", text: "Poti"},
-            {value: "7", text: "Batumi"}
+            {value: "2", text: "Poti"}
+        
         ],
         Lithuania: [
             {value: "4", text: "Klaipeda"}
