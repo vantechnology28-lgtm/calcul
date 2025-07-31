@@ -1,5 +1,18 @@
 console.log('🔧 Script.js with smart port logic starting...');
 
+// ДОБАВЬТЕ ЭТИ СТРОКИ для отладки:
+console.log('🔍 Checking global variables...');
+console.log('🔍 typeof locationData:', typeof locationData);
+console.log('🔍 typeof portData:', typeof portData);
+console.log('🔍 typeof oceanPrices:', typeof oceanPrices);
+
+if (typeof locationData !== 'undefined') {
+    console.log('🔍 locationData keys:', Object.keys(locationData));
+} else {
+    console.log('🔍 locationData is undefined - checking window...');
+    console.log('🔍 window.locationData:', typeof window.locationData);
+}
+
 var elements = null;
 var currentSelectedLocation = null;
 
@@ -183,22 +196,59 @@ function loadPortsForLocation(location) {
 
 function loadLocations(auctionId) {
     console.log('📍 Loading locations for auction:', auctionId);
+    console.log('📍 locationData exists:', typeof locationData !== 'undefined');
+    console.log('📍 locationData keys:', typeof locationData !== 'undefined' ? Object.keys(locationData) : 'undefined');
     
-    var locations = locationData[auctionId] || [];
+    if (typeof locationData === 'undefined') {
+        console.error('❌ locationData is undefined!');
+        elements.location.innerHTML = '<option value="">Ошибка: данные не загружены</option>';
+        return;
+    }
+    
+    var locations = locationData[auctionId];
+    console.log('📍 Raw locations for auction ' + auctionId + ':', locations);
+    console.log('📍 Locations type:', typeof locations);
+    console.log('📍 Is array:', Array.isArray(locations));
+    
+    if (!locations) {
+        console.error('❌ No locations found for auction:', auctionId);
+        elements.location.innerHTML = '<option value="">Нет локаций для этого аукциона</option>';
+        return;
+    }
+    
     console.log('📍 Found', locations.length, 'locations');
     
     elements.location.innerHTML = '<option value="">Выберите локацию</option>';
     
-    for (var i = 0; i < locations.length; i++) {
+    // Простой цикл для отладки
+    for (var i = 0; i < Math.min(locations.length, 5); i++) {
         var location = locations[i];
+        console.log('📍 Processing location ' + i + ':', location);
+        
         var option = document.createElement('option');
         option.value = location.value;
         option.textContent = location.text;
         option.setAttribute('data-land-cost', location.landCost);
         elements.location.appendChild(option);
+        
+        console.log('📍 Added option:', location.text);
     }
     
+    if (locations.length > 5) {
+        console.log('📍 Adding remaining', (locations.length - 5), 'locations...');
+        for (var i = 5; i < locations.length; i++) {
+            var location = locations[i];
+            var option = document.createElement('option');
+            option.value = location.value;
+            option.textContent = location.text;
+            option.setAttribute('data-land-cost', location.landCost);
+            elements.location.appendChild(option);
+        }
+    }
+    
+    console.log('📍 Total options in select:', elements.location.options.length);
     console.log('✅ Locations loaded successfully');
+
 }
 
 function loadArrivalPorts(destination) {
