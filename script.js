@@ -72,7 +72,8 @@ function setupEvents() {
     elements.location.addEventListener('change', function() {
         console.log('📍 Location selected:', this.value);
         var locationId = this.value;
-        updateDisplay('selectedLocation', this.options[this.selectedIndex]?.text || 'Не выбрана');
+        var selectedText = this.options[this.selectedIndex] ? this.options[this.selectedIndex].text : 'Не выбрана';
+        updateDisplay('selectedLocation', selectedText);
         
         if (locationId) {
             // Сохраняем выбранную локацию
@@ -107,14 +108,16 @@ function setupEvents() {
     // Порт отправления
     elements.portLoading.addEventListener('change', function() {
         console.log('🚢 Loading port selected:', this.value);
-        updateDisplay('selectedPortLoading', this.options[this.selectedIndex]?.text || 'Не выбран');
+        var selectedText = this.options[this.selectedIndex] ? this.options[this.selectedIndex].text : 'Не выбран';
+        updateDisplay('selectedPortLoading', selectedText);
         checkForm();
     });
 
     // Порт прибытия
     elements.portArrival.addEventListener('change', function() {
         console.log('⚓ Arrival port selected:', this.value);
-        updateDisplay('selectedPortArrival', this.options[this.selectedIndex]?.text || 'Не выбран');
+        var selectedText = this.options[this.selectedIndex] ? this.options[this.selectedIndex].text : 'Не выбран';
+        updateDisplay('selectedPortArrival', selectedText);
         checkForm();
     });
 
