@@ -742,8 +742,7 @@ const locationData = {
 // ВАЖНО: Только ОДНО закрытие объекта!
 
 // Данные портов
-const portData = {
-// Данные портов остаются те же
+
 const portData = {
     loading: [
         {value: "1", text: "PORT, NJ"},
