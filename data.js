@@ -1,4 +1,347 @@
-// Wyoming
+// Проверяем загрузку данных
+console.log('🔧 Loading COMPLETE locations data.js...');
+
+// ПОЛНЫЙ список локаций включая ВСЕ варианты
+const locationData = {
+    1: [ // Copart - основные + дополнительные + SUBLOT
+        // Alabama
+        {value: "38297", text: "AL MOBILE", landCost: 430, ports: ["3"]},
+        {value: "38298", text: "AL BIRMINGHAM", landCost: 450, ports: ["3"]},
+        {value: "38299", text: "AL Montgomery", landCost: 460, ports: ["3"]},
+        {value: "40759", text: "AL AL - DOTHAN", landCost: 470, ports: ["3"]},
+        {value: "38300", text: "AL TANNER", landCost: 460, ports: ["3"]},
+        {value: "42394", text: "AL MOBILE SOUTH", landCost: 430, ports: ["3"]},
+        {value: "38571", text: "AL BIRMINGHAM AL SUBLOT", landCost: 0, ports: []},
+        
+        // Arkansas  
+        {value: "38301", text: "AR LITTLE ROCK", landCost: 520, ports: ["2"]},
+        {value: "38302", text: "AR FAYETTEVILLE", landCost: 550, ports: ["2"]},
+        
+        // Arizona
+        {value: "38303", text: "AZ PHOENIX", landCost: 470, ports: ["5"]},
+        {value: "43710", text: "AZ AZ - PHOENIX NORTH", landCost: 480, ports: ["5"]},
+        {value: "38304", text: "AZ TUCSON", landCost: 490, ports: ["5"]},
+        
+        // California
+        {value: "41272", text: "CA ADELANTO", landCost: 360, ports: ["5"]},
+        {value: "44310", text: "CA NAPA", landCost: 350, ports: ["5"]},
+        {value: "38924", text: "CA CA - REDDING", landCost: 370, ports: ["5"]},
+        {value: "38181", text: "CA ANTELOPE", landCost: 340, ports: ["5"]},
+        {value: "38305", text: "CA BAKERSFIELD", landCost: 360, ports: ["5"]},
+        {value: "38306", text: "CA SAN BERNARDINO", landCost: 340, ports: ["5"]},
+        {value: "38307", text: "CA FRESNO", landCost: 370, ports: ["5"]},
+        {value: "38574", text: "CA SACRAMENTO CA SUBLOT", landCost: 0, ports: []},
+        {value: "38308", text: "CA HAYWARD", landCost: 340, ports: ["5"]},
+        {value: "38573", text: "CA LANCASTER CA SUBLOT", landCost: 0, ports: []},
+        {value: "38309", text: "CA LOS ANGELES", landCost: 330, ports: ["5"]},
+        {value: "38310", text: "CA MARTINEZ", landCost: 340, ports: ["5"]},
+        {value: "43270", text: "CA MENTONE", landCost: 350, ports: ["5"]},
+        {value: "38311", text: "CA RANCHO CUCAMONGA", landCost: 340, ports: ["5"]},
+        {value: "38312", text: "CA SACRAMENTO", landCost: 340, ports: ["5"]},
+        {value: "38313", text: "CA SAN DIEGO", landCost: 350, ports: ["5"]},
+        {value: "38314", text: "CA San Jose", landCost: 350, ports: ["5"]},
+        {value: "38576", text: "CA SANTA PAULA CA SUBLOT", landCost: 0, ports: []},
+        {value: "38553", text: "CA Sun Valley SUBLOT", landCost: 0, ports: []},
+        {value: "38315", text: "CA VALLEJO", landCost: 340, ports: ["5"]},
+        {value: "38316", text: "CA VAN NUYS", landCost: 340, ports: ["5"]},
+        {value: "38575", text: "CA Long Beach", landCost: 330, ports: ["5"]},
+        
+        // Colorado
+        {value: "38317", text: "CO DENVER", landCost: 630, ports: ["2"]},
+        {value: "38562", text: "CO COLORADO SPRINGS CO SUBLOT", landCost: 0, ports: []},
+        {value: "38532", text: "CO COLORADO SPRINGS", landCost: 640, ports: ["2"]},
+        {value: "38588", text: "CO Denver Central", landCost: 630, ports: ["2"]},
+        {value: "38585", text: "CO FORT LUPTON", landCost: 640, ports: ["2"]},
+        {value: "38584", text: "CO CO - DENVER SOUTH", landCost: 630, ports: ["2"]},
+        {value: "38579", text: "CO COLORADO SPRINGS CO SUBLOT", landCost: 0, ports: []},
+        
+        // Connecticut
+        {value: "38198", text: "CT CT - HARTFORD SPRINGFIELD", landCost: 350, ports: ["1"]},
+        {value: "38572", text: "CT BERLIN CT SUBLOT", landCost: 0, ports: []},
+        {value: "38318", text: "CT HARTFORD", landCost: 350, ports: ["1"]},
+        
+        // Delaware
+        {value: "38319", text: "DE SEAFORD", landCost: 320, ports: ["1"]},
+        
+        // Florida
+        {value: "38550", text: "FL ORLANDO NORTH", landCost: 270, ports: ["4"]},
+        {value: "42910", text: "FL FL - PUNTA GORDA SOUTH", landCost: 280, ports: ["4"]},
+        {value: "38320", text: "FL FT. PIERCE", landCost: 260, ports: ["4"]},
+        {value: "38321", text: "FL MIAMI SOUTH", landCost: 250, ports: ["4"]},
+        {value: "38322", text: "FL JACKSONVILLE EAST", landCost: 280, ports: ["4"]},
+        {value: "43230", text: "FL JACKSONVILLE NORTH", landCost: 280, ports: ["4"]},
+        {value: "38533", text: "FL JACKSONVILLE WEST", landCost: 280, ports: ["4"]},
+        {value: "38534", text: "FL MIAMI CENTRAL", landCost: 250, ports: ["4"]},
+        {value: "38326", text: "FL MIAMI NORTH", landCost: 250, ports: ["4"]},
+        {value: "38323", text: "FL TALLAHASSEE", landCost: 310, ports: ["4"]},
+        {value: "38324", text: "FL OCALA", landCost: 280, ports: ["4"]},
+        {value: "38325", text: "FL ORLANDO SOUTH", landCost: 270, ports: ["4"]},
+        {value: "38327", text: "FL PUNTA GORDA", landCost: 270, ports: ["4"]},
+        {value: "38328", text: "FL TAMPA SOUTH", landCost: 260, ports: ["4"]},
+        {value: "38329", text: "FL WEST PALM BEACH", landCost: 250, ports: ["4"]},
+        
+        // Georgia
+        {value: "42880", text: "GA GA - AUGUSTA", landCost: 400, ports: ["3"]},
+        {value: "38330", text: "GA ATLANTA WEST", landCost: 380, ports: ["3"]},
+        {value: "38190", text: "GA GA - MACON", landCost: 400, ports: ["3"]},
+        {value: "38189", text: "GA GA - MACON", landCost: 400, ports: ["3"]},
+        {value: "38535", text: "GA CARTERSVILLE", landCost: 390, ports: ["3"]},
+        {value: "38191", text: "GA EAST POINT", landCost: 380, ports: ["3"]},
+        {value: "38192", text: "GA GA - CRASHEDTOYS ATLANTA", landCost: 380, ports: ["3"]},
+        {value: "38331", text: "GA ATLANTA SOUTH", landCost: 380, ports: ["3"]},
+        {value: "41317", text: "GA FAIRBURN", landCost: 380, ports: ["3"]},
+        {value: "38332", text: "GA ATLANTA NORTH", landCost: 380, ports: ["3"]},
+        {value: "38333", text: "GA ATLANTA EAST", landCost: 380, ports: ["3"]},
+        {value: "38334", text: "GA SAVANNAH", landCost: 320, ports: ["3"]},
+        {value: "38335", text: "GA TIFTON", landCost: 420, ports: ["3"]},
+        {value: "38567", text: "GA METTER GA SUBLOT", landCost: 0, ports: []},
+        
+        // Hawaii
+        {value: "38375", text: "HI HONOLULU", landCost: 890, ports: ["5"]},
+        {value: "38336", text: "HI HONOLULU", landCost: 890, ports: ["5"]},
+        
+        // Iowa
+        {value: "38337", text: "IA DES MOINES", landCost: 580, ports: ["1"]},
+        {value: "38538", text: "IA DAVENPORT", landCost: 600, ports: ["1"]},
+        {value: "38537", text: "IA CRASHEDTOYS ELDRIDGE", landCost: 600, ports: ["1"]},
+        
+        // Idaho
+        {value: "38338", text: "ID BOISE", landCost: 650, ports: ["16"]},
+        
+        // Illinois
+        {value: "38551", text: "IL Southern Illinois", landCost: 580, ports: ["1"]},
+        {value: "38563", text: "IL ALORTON", landCost: 580, ports: ["1"]},
+        {value: "42900", text: "IL Southern Illinois", landCost: 580, ports: ["1"]},
+        {value: "42870", text: "IL SOUTHERN ILLINOIS", landCost: 580, ports: ["1"]},
+        {value: "38339", text: "IL CHICAGO SOUTH", landCost: 630, ports: ["1"]},
+        {value: "38340", text: "IL CHICAGO NORTH", landCost: 630, ports: ["1"]},
+        {value: "38341", text: "IL PEORIA", landCost: 630, ports: ["1"]},
+        {value: "38569", text: "IL LOUIS IL SUBLOT", landCost: 0, ports: []},
+        {value: "38342", text: "IL WHEELING", landCost: 630, ports: ["1"]},
+        
+        // Indiana
+        {value: "40903", text: "IN CICERO", landCost: 550, ports: ["1"]},
+        {value: "41308", text: "IN DYER", landCost: 580, ports: ["1"]},
+        {value: "40625", text: "IN FORT WAYNE", landCost: 550, ports: ["1"]},
+        {value: "38536", text: "IN HAMMOND", landCost: 600, ports: ["1"]},
+        {value: "38343", text: "IN HARTFORD CITY", landCost: 550, ports: ["1"]},
+        {value: "38344", text: "IN INDIANAPOLIS", landCost: 550, ports: ["1"]},
+        
+        // Kansas
+        {value: "38345", text: "KS KANSAS CITY", landCost: 580, ports: ["2"]},
+        {value: "38346", text: "KS WICHITA", landCost: 580, ports: ["2"]},
+        
+        // Kentucky
+        {value: "42570", text: "KY EARLINGTON", landCost: 520, ports: ["3"]},
+        {value: "38539", text: "KY LEXINGTON WEST", landCost: 520, ports: ["3", "1"]},
+        {value: "38396", text: "KY LEXINGTON EAST", landCost: 520, ports: ["3", "1"]},
+        {value: "38397", text: "KY LOUISVILLE", landCost: 520, ports: ["3", "1"]},
+        {value: "38398", text: "KY WALTON", landCost: 520, ports: ["3", "1"]},
+        
+        // Louisiana
+        {value: "38561", text: "LA TICKFAW LA SUBLOT", landCost: 0, ports: []},
+        {value: "38399", text: "LA BATON ROUGE", landCost: 350, ports: ["2"]},
+        {value: "38400", text: "LA NEW ORLEANS", landCost: 350, ports: ["2"]},
+        {value: "38401", text: "LA SHREVEPORT", landCost: 400, ports: ["2"]},
+        
+        // Massachusetts
+        {value: "42600", text: "MA MA - FREETOWN", landCost: 380, ports: ["1"]},
+        {value: "38402", text: "MA SOUTH BOSTON", landCost: 380, ports: ["1"]},
+        {value: "38403", text: "MA NORTH BOSTON", landCost: 380, ports: ["1"]},
+        {value: "38404", text: "MA WEST WARREN", landCost: 390, ports: ["1"]},
+        
+        // Maryland
+        {value: "40732", text: "MD BALTIMORE EAST", landCost: 320, ports: ["1"]},
+        {value: "38407", text: "MD BALTIMORE", landCost: 320, ports: ["1"]},
+        {value: "38556", text: "MD BALTIMORE MD SUBLOT", landCost: 0, ports: []},
+        {value: "38408", text: "MD WASHINGTON DC", landCost: 320, ports: ["1"]},
+        {value: "38555", text: "MD WHITE MARSH SUBLOT", landCost: 0, ports: []},
+        
+        // Maine
+        {value: "38570", text: "ME GRAY ME SUBLOT", landCost: 0, ports: []},
+        {value: "38409", text: "ME LYMAN", landCost: 420, ports: ["1"]},
+        {value: "38578", text: "ME ORONO ME SUBLOT", landCost: 0, ports: []},
+        {value: "43411", text: "ME WINDHAM", landCost: 420, ports: ["1"]},
+        
+        // Michigan
+        {value: "38410", text: "MI FLINT", landCost: 520, ports: ["1"]},
+        {value: "38411", text: "MI KINCHELOE", landCost: 580, ports: ["1"]},
+        {value: "38412", text: "MI LANSING", landCost: 540, ports: ["1"]},
+        {value: "38413", text: "MI IONIA", landCost: 540, ports: ["1"]},
+        {value: "38414", text: "MI DETROIT", landCost: 520, ports: ["1"]},
+        
+        // Minnesota
+        {value: "38415", text: "MN ST. CLOUD", landCost: 650, ports: ["1"]},
+        {value: "38416", text: "MN MINNEAPOLIS", landCost: 650, ports: ["1"]},
+        {value: "38175", text: "MN CRASHEDTOYS MINNEAPOLIS", landCost: 650, ports: ["1"]},
+        {value: "38566", text: "MN HAM LAKE MN SUBLOT", landCost: 0, ports: []},
+        {value: "38540", text: "MN CRASHEDTOYS EAST BETHEL", landCost: 650, ports: ["1"]},
+        {value: "38417", text: "MN MINNEAPOLIS NORTH", landCost: 650, ports: ["1"]},
+        
+        // Missouri
+        {value: "38418", text: "MO ST. LOUIS", landCost: 580, ports: ["2"]},
+        {value: "38419", text: "MO COLUMBIA", landCost: 580, ports: ["2"]},
+        {value: "38583", text: "MO SPRINGFIELD MO SUBLOT", landCost: 0, ports: []},
+        {value: "38420", text: "MO SPRINGFIELD", landCost: 580, ports: ["2"]},
+        {value: "38421", text: "MO SIKESTON", landCost: 550, ports: ["2"]},
+        
+        // Mississippi
+        {value: "38422", text: "MS JACKSON", landCost: 480, ports: ["2", "3"]},
+        {value: "43430", text: "MS Grenada", landCost: 490, ports: ["2", "3"]},
+        
+        // Montana
+        {value: "38423", text: "MT BILLINGS", landCost: 750, ports: ["16"]},
+        {value: "38424", text: "MT Helena", landCost: 760, ports: ["16"]},
+        
+        // North Carolina
+        {value: "38425", text: "NC CHINA GROVE", landCost: 380, ports: ["3"]},
+        {value: "38951", text: "NC CONCORD", landCost: 380, ports: ["3"]},
+        {value: "38557", text: "NC LUMBERTON NC SUBLOT", landCost: 0, ports: []},
+        {value: "38426", text: "NC RALEIGH", landCost: 380, ports: ["3"]},
+        {value: "41245", text: "NC GASTONIA", landCost: 380, ports: ["3"]},
+        {value: "41191", text: "NC NC - RALEIGH NORTH", landCost: 380, ports: ["3"]},
+        {value: "38558", text: "NC LUMBERTON NC SUBLOT", landCost: 0, ports: []},
+        {value: "38427", text: "NC MEBANE", landCost: 380, ports: ["3"]},
+        {value: "38187", text: "NC MOCKSVILLE", landCost: 380, ports: ["3"]},
+        
+        // North Dakota
+        {value: "41326", text: "ND BISMARCK", landCost: 720, ports: ["1"]},
+        
+        // Nebraska
+        {value: "38428", text: "NE LINCOLN", landCost: 620, ports: ["2"]},
+        
+        // New Hampshire
+        {value: "38541", text: "NH CANDIA", landCost: 380, ports: ["1"]},
+        
+        // New Jersey
+        {value: "38474", text: "NJ GLASSBORO EAST", landCost: 320, ports: ["1"]},
+        {value: "38475", text: "NJ SOMERVILLE", landCost: 320, ports: ["1"]},
+        {value: "38476", text: "NJ TRENTON", landCost: 320, ports: ["1"]},
+        
+        // New Mexico
+        {value: "38477", text: "NM ALBUQUERQUE", landCost: 550, ports: ["2"]},
+        
+        // Nevada
+        {value: "38478", text: "NV LAS VEGAS", landCost: 450, ports: ["5"]},
+        {value: "43480", text: "NV Las Vegas West", landCost: 450, ports: ["5"]},
+        {value: "38479", text: "NV RENO", landCost: 480, ports: ["5"]},
+        
+        // New York
+        {value: "38480", text: "NY ALBANY", landCost: 360, ports: ["1"]},
+        {value: "38203", text: "NY BUFFALO", landCost: 380, ports: ["1"]},
+        {value: "38568", text: "NY BROCTON NY SUBLOT", landCost: 0, ports: []},
+        {value: "38481", text: "NY LONG ISLAND", landCost: 330, ports: ["1"]},
+        {value: "38482", text: "NY SYRACUSE", landCost: 380, ports: ["1"]},
+        {value: "38483", text: "NY ROCHESTER", landCost: 380, ports: ["1"]},
+        {value: "38484", text: "NY NEWBURGH", landCost: 340, ports: ["1"]},
+        {value: "38485", text: "NY ROCHESTER", landCost: 380, ports: ["1"]},
+        
+        // Ohio
+        {value: "43560", text: "OH AKRON", landCost: 480, ports: ["1"]},
+        {value: "38486", text: "OH CLEVELAND WEST", landCost: 480, ports: ["1"]},
+        {value: "38488", text: "OH Columbus", landCost: 480, ports: ["1"]},
+        {value: "38543", text: "OH DAYTON", landCost: 480, ports: ["1"]},
+        {value: "38542", text: "OH CLEVELAND EAST", landCost: 480, ports: ["1"]},
+        
+        // Oklahoma
+        {value: "38489", text: "OK OKLAHOMA CITY", landCost: 550, ports: ["2"]},
+        {value: "38490", text: "OK TULSA", landCost: 550, ports: ["2"]},
+        
+        // Oregon
+        {value: "38491", text: "OR EUGENE", landCost: 420, ports: ["16"]},
+        {value: "38492", text: "OR PORTLAND NORTH", landCost: 400, ports: ["16"]},
+        {value: "38493", text: "OR PORTLAND SOUTH", landCost: 400, ports: ["16"]},
+        
+        // Pennsylvania
+        {value: "38494", text: "PA PITTSBURGH EAST", landCost: 320, ports: ["1"]},
+        {value: "38544", text: "PA PHILADELPHIA EAST-SUBLOT", landCost: 0, ports: []},
+        {value: "38495", text: "PA CHAMBERSBURG", landCost: 320, ports: ["1"]},
+        {value: "38496", text: "PA SCRANTON", landCost: 330, ports: ["1"]},
+        {value: "38497", text: "PA ALTOONA", landCost: 320, ports: ["1"]},
+        {value: "38498", text: "PA PITTSBURGH NORTH", landCost: 320, ports: ["1"]},
+        {value: "38499", text: "PA HARRISBURG", landCost: 320, ports: ["1"]},
+        {value: "38500", text: "PA PHILADELPHIA", landCost: 300, ports: ["1"]},
+        {value: "38501", text: "PA PITTSBURGH SOUTH", landCost: 320, ports: ["1"]},
+        {value: "38502", text: "PA YORK HAVEN", landCost: 320, ports: ["1"]},
+        
+        // Rhode Island
+        {value: "38587", text: "RI RI - EXETER", landCost: 380, ports: ["1"]},
+        
+        // South Carolina
+        {value: "38503", text: "SC COLUMBIA", landCost: 400, ports: ["3"]},
+        {value: "38504", text: "SC GREER", landCost: 400, ports: ["3"]},
+        {value: "38188", text: "SC SC - NORTH CHARLESTON", landCost: 400, ports: ["3"]},
+        {value: "38565", text: "SC Gaston, SC SUBLOT", landCost: 0, ports: []},
+        {value: "38554", text: "SC SPARTANBURG SUBLOT", landCost: 0, ports: []},
+        
+        // South Dakota
+        {value: "43360", text: "SD Rapid City", landCost: 680, ports: ["2"]},
+        
+        // Tennessee
+        {value: "38505", text: "TN NASHVILLE", landCost: 480, ports: ["3"]},
+        {value: "38506", text: "TN KNOXVILLE", landCost: 480, ports: ["3"]},
+        {value: "38507", text: "TN Memphis", landCost: 480, ports: ["3"]},
+        
+        // Texas
+        {value: "38508", text: "TX ABILENE", landCost: 250, ports: ["2"]},
+        {value: "38509", text: "TX AMARILLO", landCost: 280, ports: ["2"]},
+        {value: "38549", text: "TX ANDREWS", landCost: 270, ports: ["2"]},
+        {value: "38586", text: "TX ANDREWS", landCost: 270, ports: ["2"]},
+        {value: "38510", text: "TX EL PASO", landCost: 320, ports: ["2"]},
+        {value: "38577", text: "TX HASLET TX SUBLOT", landCost: 0, ports: []},
+        {value: "38511", text: "TX CORPUS CHRISTI", landCost: 220, ports: ["2"]},
+        {value: "38545", text: "TX CRASHEDTOYS DALLAS", landCost: 200, ports: ["2"]},
+        {value: "38512", text: "TX DALLAS", landCost: 200, ports: ["2"]},
+        {value: "38513", text: "TX FT. WORTH", landCost: 200, ports: ["2"]},
+        {value: "38514", text: "TX HOUSTON", landCost: 180, ports: ["2"]},
+        {value: "38515", text: "TX LONGVIEW", landCost: 220, ports: ["2"]},
+        {value: "38516", text: "TX LUFKIN", landCost: 210, ports: ["2"]},
+        {value: "38517", text: "TX MCALLEN", landCost: 250, ports: ["2"]},
+        {value: "38518", text: "TX AUSTIN", landCost: 210, ports: ["2"]},
+        {value: "38559", text: "TX ORMY TX SUBLOT", landCost: 0, ports: []},
+        {value: "38547", text: "TX SAN ANTONIO", landCost: 220, ports: ["2"]},
+        {value: "38552", text: "TX WACO", landCost: 210, ports: ["2"]},
+        {value: "38560", text: "TX ANTHONY TX SUBLOT", landCost: 0, ports: []},
+        {value: "38582", text: "TX WILMER TX SUBLOT", landCost: 0, ports: []},
+        {value: "38546", text: "TX DALLAS SOUTH", landCost: 200, ports: ["2"]},
+        
+        // Utah
+        {value: "38564", text: "UT OGDEN SUBLOT", landCost: 0, ports: []},
+        {value: "40768", text: "UT UT - SALT LAKE CITY", landCost: 580, ports: ["16"]},
+        {value: "38519", text: "UT SALT LAKE CITY", landCost: 580, ports: ["16"]},
+        
+        // Virginia
+        {value: "38204", text: "VA VA - RICHMOND EAST", landCost: 350, ports: ["1"]},
+        {value: "38520", text: "VA DANVILLE", landCost: 360, ports: ["1"]},
+        {value: "38202", text: "VA VA - FREDERICKSBURG", landCost: 350, ports: ["1"]},
+        {value: "38201", text: "VA VA - FREDERICKSBURG", landCost: 350, ports: ["1"]},
+        {value: "38521", text: "VA HAMPTON", landCost: 340, ports: ["1"]},
+        {value: "38522", text: "VA RICHMOND", landCost: 350, ports: ["1"]},
+        
+        // Vermont
+        {value: "38580", text: "VT ORLEANS VT SUBLOT", landCost: 0, ports: []},
+        {value: "43600", text: "VT RUTLAND", landCost: 390, ports: ["1"]},
+        
+        // Washington
+        {value: "38523", text: "WA SPOKANE", landCost: 420, ports: ["16"]},
+        {value: "38524", text: "WA NORTH SEATTLE", landCost: 380, ports: ["16"]},
+        {value: "38525", text: "WA GRAHAM", landCost: 380, ports: ["16"]},
+        {value: "38526", text: "WA PASCO", landCost: 400, ports: ["16"]},
+        
+        // Wisconsin
+        {value: "38185", text: "WI APPLETON", landCost: 610, ports: ["1"]},
+        {value: "38184", text: "WI APPLETON", landCost: 610, ports: ["1"]},
+        {value: "38527", text: "WI MILWAUKEE", landCost: 610, ports: ["1"]},
+        {value: "42930", text: "WI Milwaukee South", landCost: 610, ports: ["1"]},
+        {value: "38528", text: "WI MADISON", landCost: 610, ports: ["1"]},
+        {value: "42730", text: "WI WI - MADISON SOUTH", landCost: 610, ports: ["1"]},
+        {value: "41038", text: "WI MILWAUKEE NORTH", landCost: 610, ports: ["1"]},
+        {value: "38529", text: "WI Milwaukee", landCost: 610, ports: ["1"]},
+        {value: "38581", text: "WI WAUKESHA WI SUBLOT", landCost: 0, ports: []},
+        
+        // West Virginia
+        {value: "38530", text: "WV CHARLESTON", landCost: 380, ports: ["1"]},
+        // Wyoming
         {value: "38548", text: "WY Casper", landCost: 650, ports: ["2"]}
     ],
     
