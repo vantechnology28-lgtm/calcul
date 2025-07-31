@@ -1,7 +1,10 @@
 // Проверяем загрузку данных
-console.log('🔧 Loading COMPLETE locations data.js...');
+console.log('🔧 Loading data.js...');
 
-// ПОЛНЫЙ список локаций включая ВСЕ варианты
+// ВАЖНО: Проверяем синтаксис
+try {
+    
+// Данные локаций (СЮДА ВСТАВЬТЕ ВСЕ ВАШИ ЛОКАЦИИ)
 const locationData = {
     1: [ // Copart - основные + дополнительные + SUBLOT
         // Alabama
@@ -1328,14 +1331,25 @@ const oceanPrices = {
     }
 };
 
+
 // Отладочная информация
-console.log('✅ SMART Geography Data loaded!');
+console.log('✅ Data loaded successfully!');
 console.log('📊 Available auctions:', Object.keys(locationData));
-console.log('🗺️ Locations with port mapping loaded');
+console.log('📍 Locations count:');
+Object.keys(locationData).forEach(key => {
+    console.log(`  - Auction ${key}: ${locationData[key].length} locations`);
+});
 
 // Делаем переменные глобально доступными
 window.locationData = locationData;
 window.portData = portData;
 window.oceanPrices = oceanPrices;
 
-console.log('🎯 Smart port selection ready!');
+console.log('🎉 All data ready!');
+
+} catch (error) {
+    console.error('❌ SYNTAX ERROR in data.js:', error);
+    alert('Ошибка синтаксиса в data.js: ' + error.message);
+}
+
+// Конец файла
