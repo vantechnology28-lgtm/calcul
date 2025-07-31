@@ -37,7 +37,7 @@ window.addEventListener('load', function() {
     
     console.log('✅ locationData found with keys:', Object.keys(locationData));
     
-    // Простой обработчик аукциона
+    // Обработчик аукциона
     elements.auction.addEventListener('change', function() {
         console.log('🏢 Auction changed to:', this.value);
         
@@ -73,127 +73,149 @@ window.addEventListener('load', function() {
             console.error('❌ Error in auction handler:', error);
             alert('Error: ' + error.message);
         }
-    });
+    }); // ЗАКРЫВАЕМ обработчик аукциона здесь!
     
+    // Обработчик локации (отдельно!)
     elements.location.addEventListener('change', function() {
-    console.log('📍 Location changed to:', this.value);
-    
-    try {
-        updateSelectedText('selectedLocation', this.options[this.selectedIndex].text);
+        console.log('📍 Location changed to:', this.value);
         
-        if (this.value) {
-            // Получаем данные выбранной локации
-            var auctionId = elements.auction.value;
-            var locationId = this.value;
-            var selectedLocation = null;
+        try {
+            updateSelectedText('selectedLocation', this.options[this.selectedIndex].text);
             
-            // Ищем локацию в данных
-            if (locationData[auctionId]) {
-                for (var i = 0; i < locationData[auctionId].length; i++) {
-                    if (locationData[auctionId][i].value === locationId) {
-                        selectedLocation = locationData[auctionId][i];
-                        break;
+            if (this.value) {
+                // Получаем данные выбранной локации
+                var auctionId = elements.auction.value;
+                var locationId = this.value;
+                var selectedLocation = null;
+                
+                // Ищем локацию в данных
+                if (locationData[auctionId]) {
+                    for (var i = 0; i < locationData[auctionId].length; i++) {
+                        if (locationData[auctionId][i].value === locationId) {
+                            selectedLocation = locationData[auctionId][i];
+                            break;
+                        }
                     }
                 }
-            }
-            
-            console.log('🎯 Selected location data:', selectedLocation);
-            
-            elements.portLoading.innerHTML = '<option value="">Выберите порт отправления</option>';
-            
-            if (selectedLocation && selectedLocation.ports && selectedLocation.ports.length > 0) {
-                // УМНАЯ ФИЛЬТРАЦИЯ - показываем только разрешенные порты
-                console.log('🎯 Available ports for this location:', selectedLocation.ports);
                 
-                if (typeof portData !== 'undefined' && portData.loading) {
-                    for (var i = 0; i < portData.loading.length; i++) {
-                        var port = portData.loading[i];
-                        
-                        // Проверяем есть ли этот порт в списке разрешенных
-                        if (selectedLocation.ports.indexOf(port.value) !== -1) {
+                console.log('🎯 Selected location data:', selectedLocation);
+                
+                elements.portLoading.innerHTML = '<option value="">Выберите порт отправления</option>';
+                
+                if (selectedLocation && selectedLocation.ports && selectedLocation.ports.length > 0) {
+                    // УМНАЯ ФИЛЬТРАЦИЯ - показываем только разрешенные порты
+                    console.log('🎯 Available ports for this location:', selectedLocation.ports);
+                    
+                    if (typeof portData !== 'undefined' && portData.loading) {
+                        for (var i = 0; i < portData.loading.length; i++) {
+                            var port = portData.loading[i];
+                            
+                            // Проверяем есть ли этот порт в списке разрешенных
+                            if (selectedLocation.ports.indexOf(port.value) !== -1) {
+                                var option = document.createElement('option');
+                                option.value = port.value;
+                                option.textContent = port.text;
+                                elements.portLoading.appendChild(option);
+                                console.log('✅ Added smart port:', port.text);
+                            }
+                        }
+                        elements.portLoading.disabled = false;
+                        console.log('✅ Smart ports loaded');
+                    }
+                } else {
+                    // Если нет данных о портах, показываем все
+                    console.log('⚠️ No port restrictions, showing all ports');
+                    if (typeof portData !== 'undefined' && portData.loading) {
+                        for (var i = 0; i < portData.loading.length; i++) {
+                            var port = portData.loading[i];
                             var option = document.createElement('option');
                             option.value = port.value;
                             option.textContent = port.text;
                             elements.portLoading.appendChild(option);
-                            console.log('✅ Added smart port:', port.text);
                         }
+                        elements.portLoading.disabled = false;
                     }
-                    elements.portLoading.disabled = false;
-                    console.log('✅ Smart ports loaded');
                 }
-            } else {
-                // Если нет данных о портах, показываем все
-                console.log('⚠️ No port restrictions, showing all ports');
-                if (typeof portData !== 'undefined' && portData.loading) {
-                    for (var i = 0; i < portData.loading.length; i++) {
-                        var port = portData.loading[i];
+            }
+            
+            checkFormComplete();
+            
+        } catch (error) {
+            console.error('❌ Error in location handler:', error);
+            alert('Location error: ' + error.message);
+        }
+    });
+    
+    // Обработчик направления
+    elements.destination.addEventListener('change', function() {
+        console.log('🌍 Destination changed to:', this.value);
+        
+        try {
+            if (this.value) {
+                // Загружаем порты прибытия
+                elements.portArrival.innerHTML = '<option value="">Выберите порт прибытия</option>';
+                
+                if (typeof portData !== 'undefined' && portData.arrival && portData.arrival[this.value]) {
+                    var ports = portData.arrival[this.value];
+                    console.log('⚓ Found', ports.length, 'arrival ports for', this.value);
+                    
+                    for (var i = 0; i < ports.length; i++) {
+                        var port = ports[i];
                         var option = document.createElement('option');
                         option.value = port.value;
                         option.textContent = port.text;
-                        elements.portLoading.appendChild(option);
+                        elements.portArrival.appendChild(option);
                     }
-                    elements.portLoading.disabled = false;
+                    elements.portArrival.disabled = false;
+                    console.log('✅ Arrival ports loaded');
+                } else {
+                    console.error('❌ No arrival ports found for:', this.value);
                 }
-            }
-        }
-        
-        checkFormComplete();
-        
-    } catch (error) {
-        console.error('❌ Error in location handler:', error);
-        alert('Location error: ' + error.message);
-    }
-});
-elements.destination.addEventListener('change', function() {
-    console.log('🌍 Destination changed to:', this.value);
-    
-    try {
-        if (this.value) {
-            // Загружаем порты прибытия
-            elements.portArrival.innerHTML = '<option value="">Выберите порт прибытия</option>';
-            
-            if (typeof portData !== 'undefined' && portData.arrival && portData.arrival[this.value]) {
-                var ports = portData.arrival[this.value];
-                console.log('⚓ Found', ports.length, 'arrival ports for', this.value);
-                
-                for (var i = 0; i < ports.length; i++) {
-                    var port = ports[i];
-                    var option = document.createElement('option');
-                    option.value = port.value;
-                    option.textContent = port.text;
-                    elements.portArrival.appendChild(option);
-                }
-                elements.portArrival.disabled = false;
-                console.log('✅ Arrival ports loaded');
             } else {
-                console.error('❌ No arrival ports found for:', this.value);
+                elements.portArrival.innerHTML = '<option value="">Выберите направление</option>';
+                elements.portArrival.disabled = true;
             }
-        } else {
-            elements.portArrival.innerHTML = '<option value="">Выберите направление</option>';
-            elements.portArrival.disabled = true;
+            
+            updateSelectedText('selectedPortArrival', 'Не выбран');
+            checkFormComplete();
+            
+        } catch (error) {
+            console.error('❌ Error in destination handler:', error);
+            alert('Destination error: ' + error.message);
         }
-        
-        updateSelectedText('selectedPortArrival', 'Не выбран');
+    });
+
+    // Обработчики для портов
+    elements.portLoading.addEventListener('change', function() {
+        console.log('🚢 Loading port changed to:', this.value);
+        updateSelectedText('selectedPortLoading', this.options[this.selectedIndex].text);
         checkFormComplete();
-        
-    } catch (error) {
-        console.error('❌ Error in destination handler:', error);
-        alert('Destination error: ' + error.message);
-    }
-});
+    });
 
-// Добавьте обработчики для портов
-elements.portLoading.addEventListener('change', function() {
-    console.log('🚢 Loading port changed to:', this.value);
-    updateSelectedText('selectedPortLoading', this.options[this.selectedIndex].text);
-    checkFormComplete();
-});
-
-elements.portArrival.addEventListener('change', function() {
-    console.log('⚓ Arrival port changed to:', this.value);
-    updateSelectedText('selectedPortArrival', this.options[this.selectedIndex].text);
-    checkFormComplete();
-});
+    elements.portArrival.addEventListener('change', function() {
+        console.log('⚓ Arrival port changed to:', this.value);
+        updateSelectedText('selectedPortArrival', this.options[this.selectedIndex].text);
+        checkFormComplete();
+    });
+    
+    // Обработчик кнопки расчета
+    elements.calculateBtn.addEventListener('click', function() {
+        if (!this.disabled) {
+            console.log('🧮 Calculate clicked');
+            calculatePrice();
+        }
+    });
+    
+    // Обработчик наценки
+    elements.markup.addEventListener('input', function() {
+        if (elements.resultSection.classList.contains('show')) {
+            updateFinalPrice();
+        }
+    });
+    
+    console.log('🎉 All event handlers set up');
+    
+}); // ЗАКРЫВАЕМ window.addEventListener здесь!
 
 // Функция проверки формы
 function checkFormComplete() {
@@ -218,6 +240,122 @@ function checkFormComplete() {
         console.error('Error checking form:', error);
     }
 }
+
+// Функция расчета
+function calculatePrice() {
+    console.log('🧮 Calculating price...');
+    
+    try {
+        var auctionId = elements.auction.value;
+        var destination = elements.destination.value;
+        var portLoadingId = elements.portLoading.value;
+        var portArrivalId = elements.portArrival.value;
+        
+        // Получаем стоимость суши
+        var selectedLocationOption = elements.location.options[elements.location.selectedIndex];
+        var landCost = parseInt(selectedLocationOption.getAttribute('data-land-cost')) || 0;
+        
+        console.log('🚛 Land cost:', landCost);
+        
+        // Получаем стоимость океана
+        var oceanCost = 0;
+        if (oceanPrices[destination] && oceanPrices[destination][portArrivalId]) {
+            oceanCost = oceanPrices[destination][portArrivalId][portLoadingId] || 0;
+        }
+        
+        console.log('🚢 Ocean cost:', oceanCost);
+        
+        // SUBLOT проверка
+        if (auctionId === '30' || auctionId === '31') {
+            showError('SUBLOT аукционы временно недоступны');
+            return;
+        }
+        
+        // Проверки
+        if (landCost === 0 && oceanCost === 0) {
+            showError('Маршрут не поддерживается');
+            return;
+        }
+        
+        // Расчет
+        var dealerFee = 100;
+        var portServices = destination === 'Lithuania' ? 300 : 0;
+        var totalDelivery = landCost + oceanCost + dealerFee + portServices;
+        var userMarkup = parseInt(elements.markup.value) || 0;
+        var finalPrice = totalDelivery + userMarkup;
+        
+        console.log('💰 Final calculation:', {
+            landCost: landCost,
+            oceanCost: oceanCost,
+            dealerFee: dealerFee,
+            portServices: portServices,
+            totalDelivery: totalDelivery,
+            userMarkup: userMarkup,
+            finalPrice: finalPrice
+        });
+        
+        showResult({
+            landCost: landCost,
+            oceanCost: oceanCost,
+            dealerFee: dealerFee,
+            portServices: portServices,
+            totalDelivery: totalDelivery,
+            userMarkup: userMarkup,
+            finalPrice: finalPrice
+        });
+        
+    } catch (error) {
+        console.error('❌ Calculation error:', error);
+        showError('Ошибка расчета: ' + error.message);
+    }
+}
+
+function showResult(prices) {
+    var html = '';
+    
+    if (prices.landCost > 0) {
+        html += '<div class="price-item"><span>🚛 Доставка суша:</span><span>$' + prices.landCost + '</span></div>';
+    }
+    
+    if (prices.oceanCost > 0) {
+        html += '<div class="price-item"><span>🚢 Доставка океан:</span><span>$' + prices.oceanCost + '</span></div>';
+    }
+    
+    if (prices.dealerFee > 0) {
+        html += '<div class="price-item"><span>🏢 Услуги дилера:</span><span>$' + prices.dealerFee + '</span></div>';
+    }
+    
+    if (prices.portServices > 0) {
+        html += '<div class="price-item"><span>⚓ Портовые услуги:</span><span>$' + prices.portServices + '</span></div>';
+    }
+    
+    html += '<div class="price-item"><span>📋 Итого доставка:</span><span><strong>$' + prices.totalDelivery + '</strong></span></div>';
+    
+    if (prices.userMarkup > 0) {
+        html += '<div class="price-item markup"><span>💰 Ваша наценка:</span><span>$' + prices.userMarkup + '</span></div>';
+    }
+    
+    html += '<div class="price-item total"><span>🎯 ИТОГО к оплате:</span><span>$' + prices.finalPrice + '</span></div>';
+    
+    elements.priceBreakdown.innerHTML = html;
+    elements.finalAmount.textContent = '$' + prices.finalPrice;
+    elements.resultSection.classList.add('show');
+    
+    console.log('✅ Results displayed');
+}
+
+function showError(message) {
+    console.log('❌ Showing error:', message);
+    elements.priceBreakdown.innerHTML = '<div class="error"><strong>⚠️ Ошибка:</strong> ' + message + '</div>';
+    elements.finalAmount.textContent = '$0';
+    elements.resultSection.classList.add('show');
+}
+
+function updateFinalPrice() {
+    // Простая реализация обновления наценки
+    var markupValue = parseInt(elements.markup.value) || 0;
+}
+
 // Простая функция обновления текста
 function updateSelectedText(elementId, text) {
     try {
