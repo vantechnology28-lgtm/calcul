@@ -6,69 +6,71 @@
 
 body {
     font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #F5F5F5; /* Светлый фон как на сайте */
+    background: #FAFAFA; /* Очень светлый серый фон */
     min-height: 100vh;
     padding: 20px;
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1200px; /* Чуть меньше для минимализма */
     margin: 0 auto;
-    background: #FFFFFF; /* Белый фон контейнера */
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     overflow: hidden;
 }
 
 .header {
-    background: #ED1C24; /* Красный фон заголовка */
-    color: #FFFFFF;
+    background: #FFFFFF;
+    border-bottom: 2px solid #E63946; /* Тонкая красная линия */
     text-align: center;
-    padding: 30px;
+    padding: 20px;
 }
 
 .header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    font-size: 1.8em;
     font-weight: 500;
+    color: #333333;
+    margin-bottom: 8px;
 }
 
 .header p {
-    font-size: 1.1em;
-    opacity: 0.9;
+    font-size: 1em;
+    color: #666666;
 }
 
 .main-content {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 30px;
-    padding: 40px;
+    gap: 20px;
+    padding: 30px;
 }
 
 .calculator-form {
-    background: #F5F5F5; /* Светло-серый фон формы */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #E63946; /* Тонкая красная обводка */
 }
 
 .form-section {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .form-section h3 {
     color: #333333;
-    margin-bottom: 20px;
-    font-size: 1.2em;
-    border-bottom: 2px solid #ED1C24; /* Красная линия */
-    padding-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #E63946; /* Тонкая красная линия */
+    padding-bottom: 8px;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
 .form-group {
@@ -81,235 +83,199 @@ body {
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
+    margin-bottom: 6px;
+    font-weight: 500;
     color: #333333;
-    font-size: 0.95em;
+    font-size: 0.9em;
 }
 
 .form-group select {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #E0E0E0;
-    border-radius: 8px;
-    font-size: 1em;
+    padding: 10px 12px;
+    border: 1px solid #E63946; /* Тонкая красная обводка */
+    border-radius: 6px;
+    font-size: 0.95em;
     background: #FFFFFF;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     appearance: none;
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23E63946"><path d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 18px;
+    background-position: right 12px center;
+    background-size: 16px;
     cursor: pointer;
 }
 
 .form-group select:focus {
     outline: none;
-    border-color: #ED1C24; /* Красная рамка при фокусе */
-    box-shadow: 0 0 0 3px rgba(237, 28, 36, 0.1);
+    border-color: #A61F2A; /* Тёмно-красный при фокусе */
+    box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.1);
 }
 
 .form-group select:disabled {
-    background-color: #F0F0F0;
-    color: #666666;
+    background-color: #F5F5F5;
+    color: #999999;
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 .calculate-section {
-    background: #ED1C24; /* Красный фон секции расчёта */
-    color: #FFFFFF;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(237, 28, 36, 0.3);
-    height: fit-content;
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #E63946; /* Тонкая красная обводка */
 }
 
 .calculate-section h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-align: center;
+    font-size: 1.5em;
     font-weight: 500;
-}
-
-.markup-control {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.markup-control label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.markup-control input {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    text-align: center;
-    font-weight: 600;
-    background: #FFFFFF;
     color: #333333;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .selected-options {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #E63946; /* Тонкая красная обводка */
+    border-radius: 6px;
 }
 
 .selected-option {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 0.95em;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    font-size: 0.9em;
+    color: #333333;
 }
 
 .selected-option:last-child {
-    border-bottom: none;
     margin-bottom: 0;
 }
 
 .calculate-btn {
     width: 100%;
-    padding: 15px;
-    background: #FFFFFF; /* Белая кнопка для контраста */
-    color: #ED1C24;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2em;
-    font-weight: 700;
+    padding: 12px;
+    background: #FFFFFF;
+    border: 2px solid #E63946; /* Красная обводка */
+    color: #E63946;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 20px;
+    transition: all 0.2s ease;
+    margin-bottom: 15px;
 }
 
 .calculate-btn:hover:not(:disabled) {
-    background: #D1171E; /* Тёмно-красный при наведении */
+    background: #E63946;
     color: #FFFFFF;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(237, 28, 36, 0.4);
+    transform: translateY(-1px);
 }
 
 .calculate-btn:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
-    background: #E0E0E0;
-    color: #666666;
+    border-color: #CCCCCC;
+    color: #CCCCCC;
 }
 
 .result-section {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #E63946; /* Тонкая красная обводка */
+    border-radius: 6px;
+    margin-top: 15px;
     display: none;
 }
 
 .result-section.show {
     display: block;
-    animation: slideIn 0.5s ease;
+    animation: slideIn 0.4s ease;
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .price-breakdown {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .price-item {
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 1em;
+    padding: 8px 0;
+    font-size: 0.95em;
+    color: #333333;
 }
 
 .price-item:last-child {
-    border-bottom: none;
-    font-weight: 700;
-    font-size: 1.1em;
-    border-top: 2px solid rgba(255, 255, 255, 0.3);
-    padding-top: 15px;
+    font-weight: 500;
+    border-top: 1px solid #E63946; /* Тонкая красная линия */
+    padding-top: 10px;
     margin-top: 10px;
 }
 
 .price-item.markup {
-    color: #FFD700; /* Золотой для наценки */
-    font-weight: 600;
+    color: #E63946; /* Красный для наценки */
 }
 
 .price-item.total {
-    background: rgba(255, 255, 255, 0.15);
-    margin: 10px -10px -10px -10px;
-    padding: 15px 10px;
-    border-radius: 8px;
+    font-weight: 600;
+    color: #333333;
 }
 
 .final-price {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    padding: 25px;
+    padding: 15px;
     text-align: center;
+    border-top: 1px solid #E63946; /* Тонкая красная линия */
 }
 
 .final-price .amount {
-    font-size: 2.5em;
-    font-weight: 700;
+    font-size: 2em;
+    font-weight: 600;
+    color: #333333;
     margin-bottom: 5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .final-price .currency {
-    font-size: 1.1em;
-    opacity: 0.9;
-}
-
-.warning {
-    background: rgba(255, 193, 7, 0.2);
-    border: 1px solid rgba(255, 193, 7, 0.5);
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 15px;
-    color: #FFFFFF;
     font-size: 0.9em;
-}
-
-.warning strong {
-    color: #FFD700;
+    color: #666666;
 }
 
 .error {
-    background: rgba(237, 28, 36, 0.2);
-    border: 1px solid rgba(237, 28, 36, 0.5);
-    border-radius: 8px;
-    padding: 15px;
+    background: #FFFFFF;
+    border: 1px solid #E63946;
+    border-radius: 6px;
+    padding: 10px;
     margin-top: 15px;
-    color: #FFFFFF;
+    color: #E63946;
     font-size: 0.9em;
 }
 
+.status-section {
+    background: #FFFFFF;
+    border: 1px solid #E63946; /* Тонкая красная обводка */
+    border-radius: 6px;
+    padding: 10px;
+    margin-top: 15px;
+    font-size: 0.85em;
+    color: #333333;
+}
+
 .info-section {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #E63946; /* Тонкая красная обводка */
+    border-radius: 6px;
+    margin-top: 15px;
 }
 
 .info-section h4 {
-    margin-bottom: 15px;
-    font-size: 1.1em;
+    font-size: 1em;
+    font-weight: 500;
+    color: #333333;
+    margin-bottom: 10px;
 }
 
 .info-section ul {
@@ -318,22 +284,22 @@ body {
 }
 
 .info-section li {
-    padding: 5px 0;
-    font-size: 0.9em;
-    opacity: 0.9;
+    padding: 4px 0;
+    font-size: 0.85em;
+    color: #666666;
 }
 
 .info-section li:before {
     content: "✓ ";
-    color: #FFD700;
+    color: #E63946;
     font-weight: bold;
 }
 
 @media (max-width: 768px) {
     .main-content {
         grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
+        gap: 15px;
+        padding: 15px;
     }
     
     .form-row {
@@ -341,6 +307,10 @@ body {
     }
 
     .header h1 {
-        font-size: 2em;
+        font-size: 1.5em;
+    }
+
+    .calculate-section h2 {
+        font-size: 1.3em;
     }
 }
