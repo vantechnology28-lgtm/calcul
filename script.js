@@ -296,9 +296,7 @@ function showResult(prices) {
         html += '<div class="price-item"><span>📄 Экспортные документы и хранение:</span><span>$' + prices.dealerFee + '</span></div>';
     }
     
-    if (prices.portServices > 0) {
-        html += '<div class="price-item"><span>⚓ Портовые услуги:</span><span>$' + prices.portServices + '</span></div>';
-    }
+    
     
     html += '<div class="price-item"><span>📋 Итого доставка:</span><span><strong>$' + prices.totalDelivery + '</strong></span></div>';
     
