@@ -31,15 +31,6 @@
                                     <option value="31">SUBLOT IAAI</option>
                                 </select>
                             </div>
-
-                            <div class="form-group">
-                                <label for="destination">Направление:</label>
-                                <select id="destination" required>
-                                    <option value="">Выберите направление</option>
-                                    <option value="Georgia">🇬🇪 Грузия</option>
-                                    <option value="Lithuania">🇱🇹 Литва</option>
-                                </select>
-                            </div>
                         </div>
 
                         <div class="form-row">
@@ -64,15 +55,14 @@
 
                             <div class="form-group">
                                 <label for="portArrival">Порт прибытия:</label>
-                                <select id="portArrival" required disabled>
-                                    <option value="">Выберите направление</option>
+                                <select id="portArrival" required>
+                                    <option value="">Выберите порт прибытия</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </form>
                 
-                <!-- Простой блок отладки -->
                 <div style="background: #f0f0f0; padding: 10px; margin-top: 20px; border-radius: 5px; font-size: 12px;">
                     <strong>🔧 Статус:</strong>
                     <div id="status">Загрузка...</div>
@@ -81,11 +71,6 @@
 
             <div class="calculate-section">
                 <h2>💰 Расчет Стоимости</h2>
-
-                <div class="markup-control">
-                    <label for="markup">Ваша наценка (USD):</label>
-                    <input type="number" id="markup" value="500" min="0" step="50" placeholder="500">
-                </div>
 
                 <div class="selected-options">
                     <div class="selected-option">
@@ -125,31 +110,26 @@
                 <div class="info-section">
                     <h4>ℹ️ Что включено:</h4>
                     <ul>
-                        <li>Доставка суша (аукцион → порт)</li>
-                        <li>Доставка океан (США → назначение)</li>
+                        <li>Доставка (аукцион → порт прибытия)</li>
+                        <li>Экспортные документы и хранение</li>
                         <li>Портовые услуги (для Литвы)</li>
-                        <li>Услуги дилеров USA Trans</li>
-                        <li>Ваша наценка</li>
+                        <li>Фиксированная наценка</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Загружаем файлы по порядку -->
     <script src="data.js"></script>
     <script src="script.js"></script>
     
     <script>
-        // Простая проверка статуса
         setTimeout(function() {
             var status = document.getElementById('status');
             var info = [];
-            
             info.push('Data.js: ' + (typeof locationData !== 'undefined' ? '✅' : '❌'));
             info.push('Script.js: ' + (typeof elements !== 'undefined' ? '✅' : '❌'));
             info.push('Аукционы: ' + (typeof locationData !== 'undefined' ? Object.keys(locationData).length : '0'));
-            
             status.innerHTML = info.join('<br>');
         }, 500);
     </script>
