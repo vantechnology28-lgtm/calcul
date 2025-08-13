@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Точный Калькулятор Доставки</title>
+    <title>Калькулятор Доставки AutoBuyer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚗Калькулятор Доставки</h1>
-            <p>Точные расчеты стоимости доставки автомобилей из США</p>
+            <h1>Калькулятор Доставки</h1>
+            <p>Рассчитайте стоимость доставки автомобилей из США</p>
         </div>
 
         <div class="main-content">
             <div class="calculator-form">
                 <form id="calculatorForm">
                     <div class="form-section">
-                        <h3>🏢 Аукцион и Локация</h3>
+                        <h3>Аукцион и Локация</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="auction">Аукцион:</label>
+                                <label for="auction">Аукцион</label>
                                 <select id="auction" required>
                                     <option value="">Выберите аукцион</option>
                                     <option value="1">Copart</option>
@@ -35,7 +36,7 @@
 
                         <div class="form-row">
                             <div class="form-group full-width">
-                                <label for="location">Локация в США:</label>
+                                <label for="location">Локация в США</label>
                                 <select id="location" required disabled>
                                     <option value="">Сначала выберите аукцион</option>
                                 </select>
@@ -44,17 +45,17 @@
                     </div>
 
                     <div class="form-section">
-                        <h3>🚢 Порты и Доставка</h3>
+                        <h3>Порты и Доставка</h3>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="portLoading">Порт отправления:</label>
+                                <label for="portLoading">Порт отправления</label>
                                 <select id="portLoading" required disabled>
                                     <option value="">Выберите локацию</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="portArrival">Порт прибытия:</label>
+                                <label for="portArrival">Порт прибытия</label>
                                 <select id="portArrival" required>
                                     <option value="">Выберите порт прибытия</option>
                                 </select>
@@ -63,40 +64,40 @@
                     </div>
                 </form>
                 
-                <div style="background: #f0f0f0; padding: 10px; margin-top: 20px; border-radius: 5px; font-size: 12px;">
-                    <strong>🔧 Статус:</strong>
+                <div class="status-section">
+                    <strong>Статус:</strong>
                     <div id="status">Загрузка...</div>
                 </div>
             </div>
 
             <div class="calculate-section">
-                <h2>💰 Расчет Стоимости</h2>
+                <h2>Расчёт стоимости</h2>
 
                 <div class="selected-options">
                     <div class="selected-option">
-                        <span>Аукцион:</span>
+                        <span>Аукцион</span>
                         <span id="selectedAuction">Не выбран</span>
                     </div>
                     <div class="selected-option">
-                        <span>Локация:</span>
+                        <span>Локация</span>
                         <span id="selectedLocation">Не выбрана</span>
                     </div>
                     <div class="selected-option">
-                        <span>Порт отправления:</span>
+                        <span>Порт отправления</span>
                         <span id="selectedPortLoading">Не выбран</span>
                     </div>
                     <div class="selected-option">
-                        <span>Порт прибытия:</span>
+                        <span>Порт прибытия</span>
                         <span id="selectedPortArrival">Не выбран</span>
                     </div>
                     <div class="selected-option">
-                        <span>Тип авто:</span>
+                        <span>Тип авто</span>
                         <span>Седан</span>
                     </div>
                 </div>
 
                 <button class="calculate-btn" id="calculateBtn" disabled>
-                    🔒 Заполните все поля
+                    Заполните все поля
                 </button>
 
                 <div class="result-section" id="resultSection">
@@ -108,7 +109,7 @@
                 </div>
 
                 <div class="info-section">
-                    <h4>ℹ️ Что включено:</h4>
+                    <h4>Что включено:</h4>
                     <ul>
                         <li>Доставка (аукцион → порт прибытия)</li>
                         <li>Экспортные документы и хранение</li>
