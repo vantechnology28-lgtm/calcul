@@ -127,7 +127,6 @@
             var info = [];
             info.push('Data.js: ' + (typeof locationData !== 'undefined' ? '✅' : '❌'));
             info.push('Script.js: ' + (typeof elements !== 'undefined' ? '✅' : '❌'));
-            info.push('Аукционы: ' + (typeof locationData !== 'undefined' ? Object.keys(locationData).length : '0'));
             status.innerHTML = info.join('<br>');
         }, 500);
     </script>
