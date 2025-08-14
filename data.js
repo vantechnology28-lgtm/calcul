@@ -2389,42 +2389,45 @@ const portData = {
             "text": "PORT, WA"
         }
     ],
-    "destination": [
-        {
-            "value": "1",
-            "text": "Poti"
-        },
-        {
-            "value": "2",
-            "text": "Klaipeda"
-        }
-    ]
-};
-
-// Цены на морскую доставку
-const oceanPrices = {
-    "Poti": {
-        "1": 1350,
-        "2": 900,
-        "3": 900,
-        "4": 900,
-        "5": 900,
-        "6": 1650,
-        "16": 900
-    },
-    "Klaipeda": {
-        "1": 850,
-        "2": 900,
-        "3": 900,
-        "4": 900,
-        "5": 900,
-        "6": 1650,
-        "16": 900
+"arrival": {
+        "Georgia": [
+            {"value": "2", "text": "Poti"}
+        ],
+        "Lithuania": [
+            {"value": "4", "text": "Klaipeda"}
+        ]
     }
 };
 
-console.log('📊 Available auctions:', Object.keys(locationData));
+// Цены океанской доставки
+const oceanPrices = {
+    "Georgia": {
+        "2": {"1": 1400, "2": 1650, "3": 1400, "4": 1800, "5": 1975, "6": 990, "16": 1900},
+        "7": {"1": 1200, "2": 1350, "3": 1200, "4": 1600, "5": 1700, "6": 990, "16": 1800}
+    },
+    "Lithuania": {
+        "4": {"1": 800, "2": 950, "3": 850, "4": 1100, "5": 1350, "6": 750, "16": 1400}
+    }
+};
 
-} catch (e) {
-    console.error('❌ Error in data.js:', e);
+
+// Отладочная информация
+console.log('✅ Data loaded successfully!');
+console.log('📊 Available auctions:', Object.keys(locationData));
+console.log('📍 Locations count:');
+Object.keys(locationData).forEach(key => {
+    console.log(`  - Auction ${key}: ${locationData[key].length} locations`);
+});
+
+// Делаем переменные глобально доступными
+window.locationData = locationData;
+window.portData = portData;
+window.oceanPrices = oceanPrices;
+
+console.log('🎉 All data ready!');
+} catch (error) {
+    console.error('❌ SYNTAX ERROR in data.js:', error);
+    alert('Ошибка синтаксиса в data.js: ' + error.message);
 }
+
+// Конец файла
