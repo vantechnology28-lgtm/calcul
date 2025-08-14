@@ -1,7 +1,7 @@
 console.log('🔧 SAFE script starting...');
 
 var elements = {};
-const FIXED_MARKUP = 500; // Фиксированная наценка в USD, изменить здесь при необходимости
+const FIXED_MARKUP = 1100; // Фиксированная наценка в USD, изменить здесь при необходимости
 
 window.addEventListener('load', function() {
     console.log('📱 Window loaded');
