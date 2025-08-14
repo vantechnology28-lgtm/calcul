@@ -300,9 +300,7 @@ function showResult(prices) {
     
     html += '<div class="price-item"><span>📋 Итого доставка:</span><span><strong>$' + prices.totalDelivery + '</strong></span></div>';
     
-    if (prices.fixedMarkup > 0) {
-        html += '<div class="price-item markup"><span>💰 Фиксированная наценка:</span><span>$' + prices.fixedMarkup + '</span></div>';
-    }
+    
     
     html += '<div class="price-item total"><span>🎯 ИТОГО к оплате:</span><span>$' + prices.finalPrice + '</span></div>';
     
