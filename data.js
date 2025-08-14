@@ -1,4 +1,4 @@
-```javascript
+
 // Проверяем загрузку данных
 console.log('🔧 Loading data.js...');
 
@@ -2428,4 +2428,3 @@ console.log('📊 Available auctions:', Object.keys(locationData));
 } catch (e) {
     console.error('❌ Error in data.js:', e);
 }
-```
