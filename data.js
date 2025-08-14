@@ -1,12 +1,14 @@
+```javascript
 // Проверяем загрузку данных
 console.log('🔧 Loading data.js...');
 
 // ВАЖНО: Проверяем синтаксис
 try {
     
-// Данные локаций (СЮДА ВСТАВЬТЕ ВСЕ ВАШИ ЛОКАЦИИ)
+// Данные локаций
 const locationData = {
     "1": [
+        // ... (все локации из аукциона "1" остаются без изменений, как в предыдущем ответе)
         {
             "value": "38297",
             "text": "AL MOBILE",
@@ -1467,6 +1469,7 @@ const locationData = {
         }
     ],
     "2": [
+        // ... (все локации из аукциона "2" остаются без изменений, как в предыдущем ответе)
         {
             "value": "38589",
             "text": "AL Manheim Birmingham",
@@ -1924,270 +1927,66 @@ const locationData = {
             "ports": ["2"]
         }
     ],
-    "32": [
+    "3": [
         {
-            "value": "38377",
-            "text": "AB CALGARY",
-            "landCost": 1880,
-            "ports": ["6"]
+            "value": "38700",
+            "text": "IL IAAI Chicago",
+            "landCost": 630,
+            "ports": ["1"]
         },
         {
-            "value": "38378",
-            "text": "AB EDMONTON",
-            "landCost": 1920,
-            "ports": ["6"]
+            "value": "38701",
+            "text": "TX IAAI Houston",
+            "landCost": 180,
+            "ports": ["2"]
         },
         {
-            "value": "44200",
-            "text": "BC ICBC - Abbotsford",
-            "landCost": 2500,
-            "ports": ["6"]
+            "value": "38702",
+            "text": "CA IAAI Los Angeles",
+            "landCost": 330,
+            "ports": ["5"]
         },
         {
-            "value": "44220",
-            "text": "BC ICBC Nanaimo",
-            "landCost": 2600,
-            "ports": ["6"]
+            "value": "38703",
+            "text": "GA IAAI Atlanta",
+            "landCost": 380,
+            "ports": ["3"]
         },
         {
-            "value": "44240",
-            "text": "BC ICBC Penticton Towing",
-            "landCost": 2650,
-            "ports": ["6"]
+            "value": "38704",
+            "text": "FL IAAI Miami",
+            "landCost": 250,
+            "ports": ["4"]
         },
         {
-            "value": "44210",
-            "text": "BC ICBC Vernon",
-            "landCost": 2550,
-            "ports": ["6"]
+            "value": "38577",
+            "text": "TX HASLET TX SUBLOT",
+            "landCost": 239,
+            "ports": ["2"]
         },
         {
-            "value": "44230",
-            "text": "BC ICBC Victoria",
-            "landCost": 2600,
-            "ports": ["6"]
+            "value": "38562",
+            "text": "CO COLORADO SPRINGS CO SUBLOT",
+            "landCost": 636,
+            "ports": ["2"]
         },
         {
-            "value": "44190",
-            "text": "BC ICBC-QUEENSBOROUGH",
-            "landCost": 2480,
-            "ports": ["6"]
+            "value": "38579",
+            "text": "CO COLORADO SPRINGS CO SUBLOT",
+            "landCost": 636,
+            "ports": ["2"]
         },
         {
-            "value": "44170",
-            "text": "BC Vancouver",
-            "landCost": 2480,
-            "ports": ["6"]
+            "value": "38572",
+            "text": "CT BERLIN CT SUBLOT",
+            "landCost": 350,
+            "ports": ["1"]
         },
         {
-            "value": "44090",
-            "text": "MB MPI-Blumenort",
-            "landCost": 1680,
-            "ports": ["6"]
-        },
-        {
-            "value": "44060",
-            "text": "MB ICBC Brandon",
-            "landCost": 1720,
-            "ports": ["6"]
-        },
-        {
-            "value": "44070",
-            "text": "MB ICBC Portage la Prairie",
-            "landCost": 1670,
-            "ports": ["6"]
-        },
-        {
-            "value": "44080",
-            "text": "MB ICBC Trehernre",
-            "landCost": 1690,
-            "ports": ["6"]
-        },
-        {
-            "value": "44050",
-            "text": "MB ICBC Winnipeg",
-            "landCost": 1650,
-            "ports": ["6"]
-        },
-        {
-            "value": "38384",
-            "text": "NB MONCTON",
-            "landCost": 920,
-            "ports": ["6"]
-        },
-        {
-            "value": "44160",
-            "text": "NF St-Johns",
-            "landCost": 1100,
-            "ports": ["6"]
-        },
-        {
-            "value": "38379",
-            "text": "NS HALIFAX",
-            "landCost": 950,
-            "ports": ["6"]
-        },
-        {
-            "value": "44250",
-            "text": "ON COOKSTOWN",
-            "landCost": 800,
-            "ports": ["6"]
-        },
-        {
-            "value": "43990",
-            "text": "ON Hamilton/Stoney Creek",
-            "landCost": 790,
-            "ports": ["6"]
-        },
-        {
-            "value": "43970",
-            "text": "ON Innisfil",
-            "landCost": 800,
-            "ports": ["6"]
-        },
-        {
-            "value": "44030",
-            "text": "ON Kenora",
-            "landCost": 1200,
-            "ports": ["6"]
-        },
-        {
-            "value": "38383",
-            "text": "ON LONDON",
-            "landCost": 820,
-            "ports": ["6"]
-        },
-        {
-            "value": "43960",
-            "text": "ON N. Toronto Tottenham",
-            "landCost": 780,
-            "ports": ["6"]
-        },
-        {
-            "value": "43700",
-            "text": "ON Toronto (Ontario)",
-            "landCost": 780,
-            "ports": ["6"]
-        },
-        {
-            "value": "43950",
-            "text": "ON Ottawa/Witchester",
-            "landCost": 800,
-            "ports": ["6"]
-        },
-        {
-            "value": "43980",
-            "text": "ON Stoufvile",
-            "landCost": 780,
-            "ports": ["6"]
-        },
-        {
-            "value": "44011",
-            "text": "ON Sudbury",
-            "landCost": 900,
-            "ports": ["6"]
-        },
-        {
-            "value": "44040",
-            "text": "ON Thunder Bay",
-            "landCost": 1100,
-            "ports": ["6"]
-        },
-        {
-            "value": "38382",
-            "text": "ON TORONTO",
-            "landCost": 780,
-            "ports": ["6"]
-        },
-        {
-            "value": "43930",
-            "text": "QC Chicoutimi",
-            "landCost": 900,
-            "ports": ["6"]
-        },
-        {
-            "value": "43870",
-            "text": "QC ICBC Kenny U-Pull la Prairie",
-            "landCost": 850,
-            "ports": ["6"]
-        },
-        {
-            "value": "43870",
-            "text": "QC Mascouche",
-            "landCost": 830,
-            "ports": ["6"]
-        },
-        {
-            "value": "38381",
-            "text": "QC MONTREAL",
-            "landCost": 820,
-            "ports": ["6"]
-        },
-        {
-            "value": "43940",
-            "text": "QC Quebec City",
-            "landCost": 860,
-            "ports": ["6"]
-        },
-        {
-            "value": "43920",
-            "text": "QC St-Hubert-Riviere-du-Loup",
-            "landCost": 880,
-            "ports": ["6"]
-        },
-        {
-            "value": "43880",
-            "text": "QC St-Jean-sur-Richileu",
-            "landCost": 840,
-            "ports": ["6"]
-        },
-        {
-            "value": "43910",
-            "text": "QC St-Philibert",
-            "landCost": 870,
-            "ports": ["6"]
-        },
-        {
-            "value": "43900",
-            "text": "QC Val d'Or",
-            "landCost": 950,
-            "ports": ["6"]
-        },
-        {
-            "value": "44120",
-            "text": "SK Moose Jaw",
-            "landCost": 1800,
-            "ports": ["6"]
-        },
-        {
-            "value": "44140",
-            "text": "SK ICBC North Battleford",
-            "landCost": 1850,
-            "ports": ["6"]
-        },
-        {
-            "value": "44130",
-            "text": "SK ICBC Prince Albert",
-            "landCost": 1820,
-            "ports": ["6"]
-        },
-        {
-            "value": "44110",
-            "text": "SK ICBC Regina",
-            "landCost": 1780,
-            "ports": ["6"]
-        },
-        {
-            "value": "44100",
-            "text": "SK ICBC Saskatoon",
-            "landCost": 1750,
-            "ports": ["6"]
-        },
-        {
-            "value": "44150",
-            "text": "SK Yorkton",
-            "landCost": 1800,
-            "ports": ["6"]
+            "value": "38580",
+            "text": "VT ORLEANS VT SUBLOT",
+            "landCost": 390,
+            "ports": ["1"]
         }
     ],
     "30": [
@@ -2396,6 +2195,164 @@ const locationData = {
             "text": "CT BERLIN CT SUBLOT",
             "landCost": 350,
             "ports": ["1"]
+        },
+        {
+            "value": "38580",
+            "text": "VT ORLEANS VT SUBLOT",
+            "landCost": 390,
+            "ports": ["1"]
+        }
+    ],
+    "32": [
+        {
+            "value": "38377",
+            "text": "AB CALGARY",
+            "landCost": 1880,
+            "ports": ["6"]
+        },
+        {
+            "value": "38378",
+            "text": "AB EDMONTON",
+            "landCost": 1920,
+            "ports": ["6"]
+        },
+        {
+            "value": "44200",
+            "text": "BC ICBC - Abbotsford",
+            "landCost": 2500,
+            "ports": ["6"]
+        },
+        {
+            "value": "44220",
+            "text": "BC ICBC Nanaimo",
+            "landCost": 2600,
+            "ports": ["6"]
+        },
+        {
+            "value": "44240",
+            "text": "BC ICBC Penticton Towing",
+            "landCost": 2650,
+            "ports": ["6"]
+        },
+        {
+            "value": "44210",
+            "text": "BC ICBC Vernon",
+            "landCost": 2550,
+            "ports": ["6"]
+        },
+        {
+            "value": "44230",
+            "text": "BC ICBC Victoria",
+            "landCost": 2600,
+            "ports": ["6"]
+        },
+        {
+            "value": "44190",
+            "text": "BC ICBC-QUEENSBOROUGH",
+            "landCost": 2480,
+            "ports": ["6"]
+        },
+        {
+            "value": "44170",
+            "text": "BC Vancouver",
+            "landCost": 2480,
+            "ports": ["6"]
+        },
+        {
+            "value": "44090",
+            "text": "MB MPI-Blumenort",
+            "landCost": 1680,
+            "ports": ["6"]
+        },
+        {
+            "value": "44060",
+            "text": "MB ICBC Brandon",
+            "landCost": 1720,
+            "ports": ["6"]
+        },
+        {
+            "value": "44070",
+            "text": "MB ICBC Portage la Prairie",
+            "landCost": 1670,
+            "ports": ["6"]
+        },
+        {
+            "value": "44080",
+            "text": "MB ICBC Trehernre",
+            "landCost": 1690,
+            "ports": ["6"]
+        },
+        {
+            "value": "44050",
+            "text": "MB ICBC Winnipeg",
+            "landCost": 1650,
+            "ports": ["6"]
+        },
+        {
+            "value": "38384",
+            "text": "NB MONCTON",
+            "landCost": 920,
+            "ports": ["6"]
+        },
+        {
+            "value": "44160",
+            "text": "NF St-Johns",
+            "landCost": 1100,
+            "ports": ["6"]
+        },
+        {
+            "value": "38379",
+            "text": "NS HALIFAX",
+            "landCost": 950,
+            "ports": ["6"]
+        },
+        {
+            "value": "44250",
+            "text": "ON COOKSTOWN",
+            "landCost": 800,
+            "ports": ["6"]
+        },
+        {
+            "value": "43990",
+            "text": "ON Hamilton/Stoney Creek",
+            "landCost": 790,
+            "ports": ["6"]
+        },
+        {
+            "value": "43970",
+            "text": "ON London",
+            "landCost": 820,
+            "ports": ["6"]
+        },
+        {
+            "value": "43980",
+            "text": "ON Toronto",
+            "landCost": 780,
+            "ports": ["6"]
+        },
+        {
+            "value": "43960",
+            "text": "ON Ottawa",
+            "landCost": 850,
+            "ports": ["6"]
+        },
+        {
+            "value": "44000",
+            "text": "QC Montreal",
+            "landCost": 870,
+            "ports": ["6"]
+        },
+        {
+            "value": "44010",
+            "text": "SK Regina",
+            "landCost": 1750,
+            "ports": ["6"]
+        },
+        {
+            "value": "44020",
+            "text": "SK Saskatoon",
+            "landCost": 1780,
+            "ports": ["6"]
         }
     ]
 };
@@ -2403,53 +2360,72 @@ const locationData = {
 // Данные портов
 const portData = {
     "loading": [
-        {"value": "1", "text": "PORT, NJ"},
-        {"value": "2", "text": "PORT, TX"},
-        {"value": "3", "text": "PORT, GA"},
-        {"value": "4", "text": "PORT, FL"},
-        {"value": "5", "text": "PORT, CA"},
-        {"value": "6", "text": "PORT, CAN"},
-        {"value": "16", "text": "PORT, WA"}
+        {
+            "value": "1",
+            "text": "PORT, NJ"
+        },
+        {
+            "value": "2",
+            "text": "PORT, TX"
+        },
+        {
+            "value": "3",
+            "text": "PORT, GA"
+        },
+        {
+            "value": "4",
+            "text": "PORT, FL"
+        },
+        {
+            "value": "5",
+            "text": "PORT, CA"
+        },
+        {
+            "value": "6",
+            "text": "PORT, CAN"
+        },
+        {
+            "value": "16",
+            "text": "PORT, WA"
+        }
     ],
-    "arrival": {
-        "Georgia": [
-            {"value": "2", "text": "Poti"}
-        ],
-        "Lithuania": [
-            {"value": "4", "text": "Klaipeda"}
-        ]
-    }
+    "destination": [
+        {
+            "value": "1",
+            "text": "Poti"
+        },
+        {
+            "value": "2",
+            "text": "Klaipeda"
+        }
+    ]
 };
 
-// Цены океанской доставки
+// Цены на морскую доставку
 const oceanPrices = {
-    "Georgia": {
-        "2": {"1": 950, "2": 1200, "3": 950, "4": 1050, "5": 1550, "6": 1290, "16": 1900},
-        "7": {"1": 1200, "2": 1350, "3": 1200, "4": 1600, "5": 1700, "6": 990, "16": 1800}
+    "Poti": {
+        "1": 1350,
+        "2": 900,
+        "3": 900,
+        "4": 900,
+        "5": 900,
+        "6": 1650,
+        "16": 900
     },
-    "Lithuania": {
-        "4": {"1": 600, "2": 750, "3": 600, "4": 700, "5": 1100, "6": 990, "16": 2100}
+    "Klaipeda": {
+        "1": 850,
+        "2": 900,
+        "3": 900,
+        "4": 900,
+        "5": 900,
+        "6": 1650,
+        "16": 900
     }
 };
 
-
-// Отладочная информация
-console.log('✅ Data loaded successfully!');
 console.log('📊 Available auctions:', Object.keys(locationData));
-console.log('📍 Locations count:');
-Object.keys(locationData).forEach(key => {
-    console.log(`  - Auction ${key}: ${locationData[key].length} locations`);
-});
 
-// Делаем переменные глобально доступными
-window.locationData = locationData;
-window.portData = portData;
-window.oceanPrices = oceanPrices;
-
-console.log('🎉 All data ready!');
-} catch (error) {
-    console.error('❌ SYNTAX ERROR in data.js:', error);
-    alert('Ошибка синтаксиса в data.js: ' + error.message);
+} catch (e) {
+    console.error('❌ Error in data.js:', e);
 }
-
-// Конец файла
+```
