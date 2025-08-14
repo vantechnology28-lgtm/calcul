@@ -260,16 +260,14 @@ function calculatePrice() {
         }
         
         // Расчет
-        var dealerFee = 200; // Фиксированная стоимость экспортных документов и хранения
-        var portServices = destination === 'Lithuania' ? 300 : 0;
-        var totalDelivery = landCost + oceanCost + dealerFee + portServices;
-        var finalPrice = totalDelivery + FIXED_MARKUP;
+        var dealerFee = 200; // Экспортные документы и хранение
+        var totalDelivery = landCost + oceanCost + FIXED_MARKUP; // Только суша + море + наценка
+        var finalPrice = totalDelivery + dealerFee; // Итоговая сумма
         
         console.log('💰 Final calculation:', {
             landCost: landCost,
             oceanCost: oceanCost,
             dealerFee: dealerFee,
-            portServices: portServices,
             totalDelivery: totalDelivery,
             fixedMarkup: FIXED_MARKUP,
             finalPrice: finalPrice
@@ -277,7 +275,6 @@ function calculatePrice() {
         
         showResult({
             dealerFee: dealerFee,
-            portServices: portServices,
             totalDelivery: totalDelivery,
             fixedMarkup: FIXED_MARKUP,
             finalPrice: finalPrice
@@ -296,11 +293,7 @@ function showResult(prices) {
         html += '<div class="price-item"><span>📄 Экспортные документы и хранение:</span><span>$' + prices.dealerFee + '</span></div>';
     }
     
-    
-    
     html += '<div class="price-item"><span>📋 Итого доставка:</span><span><strong>$' + prices.totalDelivery + '</strong></span></div>';
-    
-    
     
     html += '<div class="price-item total"><span>🎯 ИТОГО к оплате:</span><span>$' + prices.finalPrice + '</span></div>';
     
